@@ -5,5 +5,6 @@ namespace Reports.Core.Repositories;
 
 public interface IPendingValidationRepository : IGenericRepository<PendingValidation>
 {
+    Task<IEnumerable<PendingValidation>> GetAllPendingValidationAsync();
 
 }
