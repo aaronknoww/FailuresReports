@@ -7,11 +7,11 @@ using Reports.Core.Repositories;
 
 namespace Reports.Application.Handlers.SysFtHandlers;
 
-public class GetBySerialNumberHandler : IRequestHandler<GetBySerialNumberQuery<FailureRegistrationSYSFTDto>, FailureRegistrationSYSFTDto>
+public class GetBySerialNumberSYSFTHandler : IRequestHandler<GetBySerialNumberQuery<FailureRegistrationSYSFTDto>, FailureRegistrationSYSFTDto>
 {
     private readonly ISYSFTFailureRepository _repository;
 
-    public GetBySerialNumberHandler(ISYSFTFailureRepository repository)
+    public GetBySerialNumberSYSFTHandler(ISYSFTFailureRepository repository)
     {
         this._repository = repository;
     }
