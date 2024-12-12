@@ -14,7 +14,7 @@
           "lib/net6.0/AutoMapper.dll": {}
         }
       },
-      "MediatR/12.4.1": {
+      "MediatR/12.4.0": {
         "type": "package",
         "dependencies": {
           "MediatR.Contracts": "[2.0.1, 3.0.0)",
@@ -115,10 +115,10 @@
         "lib/net6.0/AutoMapper.dll"
       ]
     },
-    "MediatR/12.4.1": {
-      "sha512": "0tLxCgEC5+r1OCuumR3sWyiVa+BMv3AgiU4+pz8xqTc+2q1WbUEXFOr7Orm96oZ9r9FsldgUtWvB2o7b9jDOaw==",
+    "MediatR/12.4.0": {
+      "sha512": "s8xhhvsTQqt7jI1XeVqcniiph/QoRmJb1qxVgk7UFpAgOzpzZ0VTl8zV+lFJgxISVqZuJRjmxF+P3AuHyelCrg==",
       "type": "package",
-      "path": "mediatr/12.4.1",
+      "path": "mediatr/12.4.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -126,7 +126,7 @@
         "gradient_128x128.png",
         "lib/net6.0/MediatR.dll",
         "lib/netstandard2.0/MediatR.dll",
-        "mediatr.12.4.1.nupkg.sha512",
+        "mediatr.12.4.0.nupkg.sha512",
         "mediatr.nuspec"
       ]
     },
@@ -238,7 +238,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "AutoMapper >= 13.0.1",
-      "MediatR >= 12.4.1",
+      "MediatR >= 12.4.0",
       "Reports.Core >= 1.0.0"
     ]
   },
@@ -294,7 +294,7 @@
           },
           "MediatR": {
             "target": "Package",
-            "version": "[12.4.1, )"
+            "version": "[12.4.0, )"
           }
         },
         "imports": [

@@ -17,11 +17,11 @@ public class GetBySerialNumberPendingHandler : IRequestHandler<GetBySerialNumber
     }
     public async Task<PendingValidationDto> Handle(GetBySerialNumberQuery<PendingValidationDto> request, CancellationToken cancellationToken)
     {
-        var repo = await _repository.GetBySerialNumberAsync(request.SerialNumber);
-        if (repo == null)
+        PendingValidation entity = await _repository.GetBySerialNumberAsync(request.SerialNumber);
+        if (entity == null)
            throw new Exception("No hay informacion de ese numero de serie");
         
-        return MapperLazyConf.Mapper.Map<PendingValidation, PendingValidationDto>(repo);
+        return MapperLazyConf.Mapper.Map<PendingValidation, PendingValidationDto>(entity);
         
     }
 }

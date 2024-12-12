@@ -17,7 +17,10 @@ public class GetBySerialNumberSYSVFHandler : IRequestHandler<GetBySerialNumberQu
     }
     public async Task<FailureRegistrationSYSVFDto> Handle(GetBySerialNumberQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
     {
-        var SysftRepo = await _repository.GetBySerialNumberAsync(request.SerialNumber);
+        FailureRegistrationSYSVF SysftRepo = await _repository.GetBySerialNumberAsync(request.SerialNumber);
+        if (SysftRepo == null)
+            throw new ArgumentNullException(nameof(request));
+        
         var SysftDto = MapperLazyConf.Mapper.Map<FailureRegistrationSYSVF, FailureRegistrationSYSVFDto>(SysftRepo);
         return SysftDto;
     }
