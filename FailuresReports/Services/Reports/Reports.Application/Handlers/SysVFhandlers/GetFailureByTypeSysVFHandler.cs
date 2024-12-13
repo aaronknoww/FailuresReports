@@ -1,4 +1,3 @@
-using MediatR;
 using Reports.Application.Dtos;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
@@ -7,21 +6,20 @@ using Reports.Core.Repositories;
 
 namespace Reports.Application.Handlers.SysFtHandlers;
 
-public class GetAllByUserIdSysVFHandler : IRequestHandler<GetAllByUserIdQuery<FailureRegistrationSYSVFDto>, IEnumerable<FailureRegistrationSYSVFDto>>
+public class GetFailureByTypeSysVFHandler : IRequestHandler<GetFailureByTypeSysQuery<FailureRegistrationSYSVFDto>, IEnumerable<FailureRegistrationSYSVFDto>>
 {
     private readonly ISYSVFFailureRepository _repository;
 
-    public GetAllByUserIdSysVFHandler(ISYSVFFailureRepository repository)
+    public GetFailureByTypeSysVFHandler(ISYSVFFailureRepository repository)
     {
         this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
-    public async Task<IEnumerable<FailureRegistrationSYSVFDto>> Handle(GetAllByUserIdQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<FailureRegistrationSYSVFDto>> Handle(GetFailureByTypeSysQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
     {
-        IEnumerable<FailureRegistrationSYSVF> sysvfEntity = await _repository.GetAllByUserIdAsync(request.userId);
+        var sysvfEntity = await _repository.GetFailureByType(request.type);
         if (sysvfEntity == null)
              throw new ArgumentNullException(nameof(request));
-        
         return MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSVF>, IEnumerable<FailureRegistrationSYSVFDto>>(sysvfEntity);
-
     }
 }
+
