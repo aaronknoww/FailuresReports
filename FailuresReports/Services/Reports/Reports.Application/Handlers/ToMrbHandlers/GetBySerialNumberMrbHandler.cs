@@ -24,3 +24,5 @@ public class GetBySerialNumberMrbHandler : IRequestHandler<GetBySerialNumberQuer
         return MapperLazyConf.Mapper.Map<ToMrb, ToMrbDto>(entity);
     }
 }
+
+
