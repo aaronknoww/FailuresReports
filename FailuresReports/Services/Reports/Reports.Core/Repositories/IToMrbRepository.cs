@@ -5,6 +5,6 @@ namespace Reports.Core.Repositories;
 
 public interface IToMrbRepository : IGenericRepository<ToMrb>
 {
-    Task<IEnumerable<ToMrb>> GetAllAsync();
+    Task<IEnumerable<ToMrb>> GetAllMrbAsync();
 
 }

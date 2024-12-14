@@ -1,3 +1,4 @@
+using MediatR;
 using Reports.Application.Dtos;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
@@ -6,7 +7,7 @@ using Reports.Core.Repositories;
 
 namespace Reports.Application.Handlers.SysFtHandlers;
 
-public class GetFailureByBuSysVFHandler : IRequestHandler<GetFailureByAreaSysQuery<FailureRegistrationSYSVFDto>, IEnumerable<FailureRegistrationSYSVFDto>>
+public class GetFailureByBuSysVFHandler : IRequestHandler<GetFailureByBuSysQuery<FailureRegistrationSYSVFDto>, IEnumerable<FailureRegistrationSYSVFDto>>
 {
     private readonly ISYSVFFailureRepository _repository;
 

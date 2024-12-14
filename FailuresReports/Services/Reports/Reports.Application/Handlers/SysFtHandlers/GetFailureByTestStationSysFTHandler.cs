@@ -1,3 +1,4 @@
+using MediatR;
 using Reports.Application.Dtos;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
@@ -14,18 +15,11 @@ public class GetFailureByTestStationSysFTHandler : IRequestHandler<GetFailureByT
     {
         this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
-    public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetFailureByAreaSysQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetFailureByTestStationSysQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
-        var sysftEntity = await _repository.GetFailureByTestStation(request.testArea);
+        var sysftEntity = await _repository.GetFailureByTestStation(request.testStation);
         if (sysftEntity == null)
              throw new ArgumentNullException(nameof(request));
         return MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSFT>, IEnumerable<FailureRegistrationSYSFTDto>>(sysftEntity);
     }
 }
-
-/*
-
-    
-    Task<IEnumerable<T>> GetFailureByTestStation(string testStation);
-    Task<IEnumerable<T>> GetFailureByBu(string bu);
-*/
