@@ -5,9 +5,11 @@ namespace Reports.Core.Common;
 public interface IGenericRepository<T> where T : class
 {
     // Metodos genericos para cualquier tabla de una base de datos para hacer el CRUD.
-    Task<T> CreateAsync(T entity); // To insert register into DB
-    Task<T> UpdateAsync(T entity); 
-    Task<T> DeleteAsync(T entity);
+
+    //Commands
+    Task<bool> InsertRecord(T entity); // To insert register into DB
+    Task<bool> UpdateAsync(T entity); 
+    Task<bool> DeleteAsync(T entity);
 
     
 
