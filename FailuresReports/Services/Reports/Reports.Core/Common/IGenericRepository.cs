@@ -7,7 +7,7 @@ public interface IGenericRepository<T> where T : class
     // Metodos genericos para cualquier tabla de una base de datos para hacer el CRUD.
 
     //Commands
-    Task<bool> InsertRecord(T entity); // To insert register into DB
+    Task<bool> InsertRecordAsync(T entity); // To insert register into DB
     Task<bool> UpdateAsync(T entity); 
     Task<bool> DeleteAsync(T entity);
 

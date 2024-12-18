@@ -1,4 +1,3 @@
-using System;
 using MediatR;
 using Reports.Application.Commands.CommonComan;
 using Reports.Application.Dtos;
@@ -21,7 +20,7 @@ public class InsertRecordPendingHandler : IRequestHandler<InsertRecordCommand<Pe
         PendingValidation pendingEntity = MapperLazyConf.Mapper.Map<PendingValidation>(request.EntityDto);
         if (pendingEntity == null)
             throw new ArgumentException("");
-        return await _repository.InsertRecord(pendingEntity);
+        return await _repository.InsertRecordAsync(pendingEntity);
         
     }
 }

@@ -21,6 +21,6 @@ public class InsertRecordSysFTHandler : IRequestHandler<InsertRecordCommand<Fail
         var sysFtEntity = MapperLazyConf.Mapper.Map<FailureRegistrationSYSFT>(request.EntityDto);
         if (sysFtEntity == null)
              throw new ArgumentException("");
-        return await _repository.InsertRecord(sysFtEntity);
+        return await _repository.InsertRecordAsync(sysFtEntity);
     }
 }

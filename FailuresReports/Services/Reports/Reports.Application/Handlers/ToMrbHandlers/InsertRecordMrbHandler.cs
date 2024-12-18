@@ -20,7 +20,7 @@ public class InsertRecordMrbHandler : IRequestHandler<InsertRecordCommand<ToMrbD
         var mrbEntity = MapperLazyConf.Mapper.Map<ToMrb>(request.EntityDto);
         if (mrbEntity == null)
              throw new ArgumentException("");
-        return await _repository.InsertRecord(mrbEntity);      
+        return await _repository.InsertRecordAsync(mrbEntity);      
        
     }
 }
