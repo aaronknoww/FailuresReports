@@ -9,7 +9,7 @@ public interface IGenericRepository<T> where T : class
     //Commands
     Task<bool> InsertRecordAsync(T entity); // To insert register into DB
     Task<bool> UpdateAsync(T entity); 
-    Task<bool> DeleteAsync(T entity);
+    Task<bool> DeleteBySerialnumberAsync(string serialNumber);
 
     
 
