@@ -6,5 +6,5 @@ namespace Reports.Core.Repositories;
 
 public interface ISYSFTFailureRepository : IFailureCommonRepository<FailureRegistrationSYSFT>
 {   
-    Task<bool> InsertAllByFailure(IEnumerable<FailureRegistrationSYSFT> values, string failureType);
+    Task<bool> InsertAllByFailure(IEnumerable<FailureRegistrationSYSFT> values);
 }

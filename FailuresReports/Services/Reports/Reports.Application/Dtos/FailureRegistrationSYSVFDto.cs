@@ -1,6 +1,6 @@
 namespace Reports.Application.Dtos;
 
-public class FailureRegistrationSYSVFDto
+public class FailureRegistrationSYSVFDto :  FailiureDtoWrappler
 {
     public int UserId { get; set; }
     public string UserName { get; set;} = string.Empty;

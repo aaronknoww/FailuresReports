@@ -17,7 +17,7 @@ public class GetValuesByAreaSysVFHandler : IRequestHandler<GetFailureByAreaSysQu
     }
     public async Task<IEnumerable<FailureRegistrationSYSVFDto>> Handle(GetFailureByAreaSysQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
     {
-        var sysvfEntity = await _repository.GetFailureByArea(request.testArea);
+        var sysvfEntity = await _repository.GetAllFailuresByAreaAsync(request.testArea);
         if (sysvfEntity == null)
              throw new ArgumentNullException(nameof(request));
         return MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSVF>, IEnumerable<FailureRegistrationSYSVFDto>>(sysvfEntity);

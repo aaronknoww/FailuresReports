@@ -2,7 +2,7 @@ using System;
 
 namespace Reports.Application.Dtos;
 
-public class FailureRegistrationSYSFTDto
+public class FailureRegistrationSYSFTDto : FailiureDtoWrappler
 {
     public int UserId { get; set; }
     public string UserName { get; set;} = string.Empty;
