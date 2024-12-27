@@ -18,6 +18,7 @@ public class GetAllMrbHandler : IRequestHandler<GetAllMrbQuery, IEnumerable<ToMr
     public async Task<IEnumerable<ToMrbDto>> Handle(GetAllMrbQuery request, CancellationToken cancellationToken)
     {
         var toMrbEntity = await _repository.GetAllMrbAsync();
+        //TODO: CREATE A CLASS FOR EXEPTIONS
         if(toMrbEntity == null)
             throw new ArgumentNullException(nameof(request));
         return MapperLazyConf.Mapper.Map<IEnumerable<ToMrb>, IEnumerable<ToMrbDto>>(toMrbEntity);        

@@ -1,6 +1,7 @@
 using System;
 using MediatR;
 using Reports.Application.Dtos;
+using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
 using Reports.Core.Entities;
@@ -19,9 +20,10 @@ public class GetAllByUserIdPendingHandler : IRequestHandler<GetAllByUserIdQuery<
     public async Task<IEnumerable<PendingValidationDto>> Handle(GetAllByUserIdQuery<PendingValidationDto> request, CancellationToken cancellationToken)
     {
         IEnumerable<PendingValidation> pendingEntity = await _repository.GetAllByUserIdAsync(request.userId);
-        if (pendingEntity == null)
-             throw new ArgumentNullException(nameof(request));
+        if (pendingEntity == null || pendingEntity.Count() == 0)
+             throw new EntityNotFoundException(nameof(PendingValidation), request.userId);
         
+        //TODO: explain in the logs what happend with the operation.
         return MapperLazyConf.Mapper.Map<IEnumerable<PendingValidation>, IEnumerable<PendingValidationDto>>(pendingEntity);
     }
 }

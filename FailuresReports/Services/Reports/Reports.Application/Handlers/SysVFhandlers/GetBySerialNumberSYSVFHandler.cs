@@ -18,6 +18,7 @@ public class GetBySerialNumberSYSVFHandler : IRequestHandler<GetBySerialNumberQu
     public async Task<FailureRegistrationSYSVFDto> Handle(GetBySerialNumberQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
     {
         FailureRegistrationSYSVF SysftRepo = await _repository.GetBySerialNumberAsync(request.SerialNumber);
+        //TODO: CREATE A CLASS FOR EXEPTIONS
         if (SysftRepo == null)
             throw new ArgumentNullException(nameof(request));
         

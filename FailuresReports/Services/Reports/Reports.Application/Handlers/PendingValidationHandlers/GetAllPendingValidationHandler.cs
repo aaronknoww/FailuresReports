@@ -1,5 +1,6 @@
 using MediatR;
 using Reports.Application.Dtos;
+using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.PendingValidationQueries;
 using Reports.Core.Entities;
@@ -19,9 +20,10 @@ public class GetAllPendingValidationHandler : IRequestHandler<GetAllPendingValid
     public async Task<IEnumerable<PendingValidationDto>> Handle(GetAllPendingValidationQuery request, CancellationToken cancellationToken)
     {
         IEnumerable<PendingValidation> pendingEntity = await _repository.GetAllPendingValidationAsync();
+        //TODO: Check if request it self don't generate failure in run time.
         if(pendingEntity == null)
-            throw new NullReferenceException(nameof(pendingEntity));
-        
+            throw new EntityNotFoundException(nameof(PendingValidation), request);
+        //TODO: generate logs if the operation fail or if is succesfull.
         return MapperLazyConf.Mapper.Map<IEnumerable<PendingValidation>, IEnumerable<PendingValidationDto>>(pendingEntity);
     }
 }

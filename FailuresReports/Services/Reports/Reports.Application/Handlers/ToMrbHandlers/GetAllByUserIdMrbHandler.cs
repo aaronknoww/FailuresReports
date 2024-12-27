@@ -18,6 +18,7 @@ public class GetAllByUserIdMrbHandler : IRequestHandler<GetAllByUserIdQuery<ToMr
     public async Task<IEnumerable<ToMrbDto>> Handle(GetAllByUserIdQuery<ToMrbDto> request, CancellationToken cancellationToken)
     {
         IEnumerable<ToMrb> toMrbEntity = await _repository.GetAllByUserIdAsync(request.userId);
+        //TODO: CREATE A CLASS FOR EXEPTIONS
         if (toMrbEntity == null)
              throw new ArgumentNullException(nameof(request));
         

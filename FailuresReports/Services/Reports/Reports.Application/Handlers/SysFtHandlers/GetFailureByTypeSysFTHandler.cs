@@ -18,6 +18,7 @@ public class GetFailureByTypeSysFTHandler : IRequestHandler<GetFailureByTypeSysQ
     public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetFailureByTypeSysQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
         var sysftEntity = await _repository.GetAllFailureByTypeAsync(request.type);
+        //TODO: CREATE A CLASS FOR EXEPTIONS
         if (sysftEntity == null)
              throw new ArgumentNullException(nameof(request));
         return MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSFT>, IEnumerable<FailureRegistrationSYSFTDto>>(sysftEntity);

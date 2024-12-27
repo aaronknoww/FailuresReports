@@ -20,6 +20,7 @@ public class GetAllByUserIdSysFTHandler : IRequestHandler<GetAllByUserIdQuery<Fa
     public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetAllByUserIdQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
         IEnumerable<FailureRegistrationSYSFT> sysftEntity = await _repository.GetAllByUserIdAsync(request.userId);
+        //TODO: CREATE A CLASS FOR EXEPTIONS
         if (sysftEntity == null)
              throw new ArgumentNullException(nameof(request));
         

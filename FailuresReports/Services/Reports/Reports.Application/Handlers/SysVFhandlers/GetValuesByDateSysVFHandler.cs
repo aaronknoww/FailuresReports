@@ -18,6 +18,7 @@ public class GetValuesByDateSysVFHandler : IRequestHandler<GetAllByUserIdQuery<F
     public async Task<IEnumerable<FailureRegistrationSYSVFDto>> Handle(GetAllByUserIdQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
     {
         IEnumerable<FailureRegistrationSYSVF> sysftEntity = await _repository.GetAllByUserIdAsync(request.userId);
+        //TODO: CREATE A CLASS FOR EXEPTIONS
         if (sysftEntity == null)
              throw new ArgumentNullException(nameof(request));
         

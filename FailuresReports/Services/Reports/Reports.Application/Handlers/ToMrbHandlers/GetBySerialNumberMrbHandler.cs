@@ -19,6 +19,7 @@ public class GetBySerialNumberMrbHandler : IRequestHandler<GetBySerialNumberQuer
     public async Task<ToMrbDto> Handle(GetBySerialNumberQuery<ToMrbDto> request, CancellationToken cancellationToken)
     {
         ToMrb entity = await _repository.GetBySerialNumberAsync(request.SerialNumber);
+        //TODO: CREATE A CLASS FOR EXEPTIONS
         if (entity == null)
             throw new ArgumentNullException(nameof(request));
         return MapperLazyConf.Mapper.Map<ToMrb, ToMrbDto>(entity);

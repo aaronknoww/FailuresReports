@@ -1,6 +1,8 @@
 using MediatR;
 using Reports.Application.Commands.CommonComan;
 using Reports.Application.Dtos;
+using Reports.Application.Exceptions;
+using Reports.Core.Entities;
 using Reports.Core.Repositories;
 
 namespace Reports.Application.Handlers.PendingValidationHandlers;
@@ -15,10 +17,10 @@ public class DeleteBySerialnumberPendingHandler : IRequestHandler<DeleteBySerial
     }
     public async Task<bool> Handle(DeleteBySerialnumberCommonCommand<PendingValidationDto> request, CancellationToken cancellationToken)
     {
-        var entity = await _repository.GetBySerialNumberAsync(request.SerialNumber);
-        //TODO: CREATE A CLASS FOR EXEPTIONS
+        PendingValidation entity = await _repository.GetBySerialNumberAsync(request.SerialNumber);
+        //TODO: Logs about failiure.
         if (entity == null)
-            throw new Exception("");
+            throw new EntityNotFoundException(nameof(PendingValidation), request.SerialNumber);
         return await _repository.DeleteBySerialnumberAsync(request.SerialNumber);
     }
 }

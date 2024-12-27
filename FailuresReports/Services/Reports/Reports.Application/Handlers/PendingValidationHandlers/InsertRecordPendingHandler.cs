@@ -18,6 +18,7 @@ public class InsertRecordPendingHandler : IRequestHandler<InsertRecordCommand<Pe
     public async Task<bool> Handle(InsertRecordCommand<PendingValidationDto> request, CancellationToken cancellationToken)
     {
         PendingValidation pendingEntity = MapperLazyConf.Mapper.Map<PendingValidation>(request.EntityDto);
+        //TODO: create a validator to know if the object is correct.
         if (pendingEntity == null)
             throw new ArgumentException("");
         return await _repository.InsertRecordAsync(pendingEntity);

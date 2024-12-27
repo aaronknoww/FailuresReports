@@ -18,6 +18,7 @@ public class GetValuesByDateMrbHandler : IRequestHandler<GetValuesByDateQuery<To
     public async Task<IEnumerable<ToMrbDto>> Handle(GetValuesByDateQuery<ToMrbDto> request, CancellationToken cancellationToken)
     {
         IEnumerable<ToMrb> toMrbEntity = await _repository.GetValuesByDateAsync(request.Start, request.End);
+        //TODO: CREATE A CLASS FOR EXEPTIONS
         if (toMrbEntity == null)
              throw new ArgumentNullException(nameof(request));
         

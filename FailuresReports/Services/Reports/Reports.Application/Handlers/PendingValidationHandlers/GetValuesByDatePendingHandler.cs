@@ -1,6 +1,7 @@
 using System;
 using MediatR;
 using Reports.Application.Dtos;
+using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
 using Reports.Core.Entities;
@@ -18,9 +19,10 @@ public class GetValuesByDatePendingHandler : IRequestHandler<GetValuesByDateQuer
     }
     public async Task<IEnumerable<PendingValidationDto>> Handle(GetValuesByDateQuery<PendingValidationDto> request, CancellationToken cancellationToken)
     {
-        var pendingEntity = await _repository.GetValuesByDateAsync(request.Start, request.End);
-        if (pendingEntity == null)
-             throw new ArgumentNullException(nameof(request));
+        IEnumerable<PendingValidation> pendingEntity = await _repository.GetValuesByDateAsync(request.Start, request.End);
+        if (pendingEntity == null || pendingEntity.Count() == 0)
+             throw new EntityNotFoundException($"There is no pending validation {nameof(PendingValidation)}", request);
+        //TODO: generate logs if the operation fail or if is succesfull.
         return MapperLazyConf.Mapper.Map<IEnumerable<PendingValidation>, IEnumerable<PendingValidationDto>>(pendingEntity);
     }
 }

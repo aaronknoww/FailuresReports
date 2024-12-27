@@ -1,4 +1,3 @@
-using System;
 using MediatR;
 using Reports.Application.Commands;
 using Reports.Application.Dtos;
@@ -18,7 +17,7 @@ public class UpdateMrbHandler : IRequestHandler<UpdateCommonCommand<ToMrbDto>, b
     }
     public async Task<bool> Handle(UpdateCommonCommand<ToMrbDto> request, CancellationToken cancellationToken)
     {
-        var mrbEntity = MapperLazyConf.Mapper.Map<ToMrb>(request.EntityDto);
+        ToMrb mrbEntity = MapperLazyConf.Mapper.Map<ToMrb>(request.EntityDto);
         if (mrbEntity == null)
             throw new ArgumentException("");
         // TODO: CHECK OBJECT

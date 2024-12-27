@@ -19,6 +19,7 @@ public class InsertRecordSysVFHandler : IRequestHandler<InsertRecordCommand<Fail
     public async Task<bool> Handle(InsertRecordCommand<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
     {
         var sysVFEntity = MapperLazyConf.Mapper.Map<FailureRegistrationSYSVF>(request.EntityDto);
+        //TODO: CREATE A CLASS FOR EXEPTIONS
         if (sysVFEntity == null)
              throw new ArgumentException("");
         return await _repository.InsertRecordAsync(sysVFEntity);
