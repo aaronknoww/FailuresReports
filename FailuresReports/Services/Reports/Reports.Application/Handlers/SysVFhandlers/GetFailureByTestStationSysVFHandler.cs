@@ -1,5 +1,6 @@
 using MediatR;
 using Reports.Application.Dtos;
+using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
 using Reports.Core.Entities;
@@ -18,9 +19,10 @@ public class GetFailureByTestStationSysVFHandler : IRequestHandler<GetFailureByT
     public async Task<IEnumerable<FailureRegistrationSYSVFDto>> Handle(GetFailureByTestStationSysQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
     {
         var sysvfEntity = await _repository.GetAllFailureByTestStationAsync(request.testStation);
-        //TODO: CREATE A CLASS FOR EXEPTIONS
         if (sysvfEntity == null)
-             throw new ArgumentNullException(nameof(request));
+             throw new EntityNotFoundException($"There are no failures registered by testStation number {request.testStation}");
+
+        //TODO: generate logs if the operation fail or if is succesfull.
         return MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSVF>, IEnumerable<FailureRegistrationSYSVFDto>>(sysvfEntity);
     }
 }

@@ -4,6 +4,7 @@ using Reports.Application.Querys.Common;
 using Reports.Core.Entities;
 using Reports.Core.Repositories;
 using MediatR;
+using Reports.Application.Exceptions;
 
 namespace Reports.Application.Handlers.SysFtHandlers;
 
@@ -18,9 +19,9 @@ public class GetValuesByAreaSysVFHandler : IRequestHandler<GetFailureByAreaSysQu
     public async Task<IEnumerable<FailureRegistrationSYSVFDto>> Handle(GetFailureByAreaSysQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
     {
         var sysvfEntity = await _repository.GetAllFailuresByAreaAsync(request.testArea);
-        //TODO: CREATE A CLASS FOR EXEPTIONS
-        if (sysvfEntity == null)
-             throw new ArgumentNullException(nameof(request));
+        if (sysvfEntity == null || sysvfEntity.Count() == 0)
+             throw new EntityNotFoundException($"There are no failures registered by this test area {request.testArea}.");
+        //TODO: generate logs if the operation fail or if is succesfull.
         return MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSVF>, IEnumerable<FailureRegistrationSYSVFDto>>(sysvfEntity);
     }
 }

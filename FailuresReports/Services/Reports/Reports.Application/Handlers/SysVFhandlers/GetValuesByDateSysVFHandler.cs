@@ -17,12 +17,12 @@ public class GetValuesByDateSysVFHandler : IRequestHandler<GetAllByUserIdQuery<F
     }
     public async Task<IEnumerable<FailureRegistrationSYSVFDto>> Handle(GetAllByUserIdQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
     {
-        IEnumerable<FailureRegistrationSYSVF> sysftEntity = await _repository.GetAllByUserIdAsync(request.userId);
-        //TODO: CREATE A CLASS FOR EXEPTIONS
-        if (sysftEntity == null)
-             throw new ArgumentNullException(nameof(request));
+        IEnumerable<FailureRegistrationSYSVF> sysvfEntity = await _repository.GetAllByUserIdAsync(request.userId);
+        if (sysvfEntity == null || sysvfEntity.Count() == 0)
+             throw new EntityNotFoundException($"There are no failures registered between  {request.Start} and {request.End}.");
+        //TODO: generate logs if the operation fail or if is succesfull.
         
-        return MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSVF>, IEnumerable<FailureRegistrationSYSVFDto>>(sysftEntity);
+        return MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSVF>, IEnumerable<FailureRegistrationSYSVFDto>>(sysvfEntity);
 
     }
 }

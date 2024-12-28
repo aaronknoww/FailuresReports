@@ -1,5 +1,6 @@
 using MediatR;
 using Reports.Application.Dtos;
+using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
 using Reports.Core.Entities;
@@ -19,8 +20,9 @@ public class GetFailureByBuSysVFHandler : IRequestHandler<GetFailureByBuSysQuery
     {
         var sysvfEntity = await _repository.GetAllFailuresByBuAsync(request.bu);
         //TODO: CREATE A CLASS FOR EXEPTIONS
-        if (sysvfEntity == null)
-             throw new ArgumentNullException(nameof(request));
+        if (sysvfEntity == null || sysvfEntity.Count() == 0)
+             throw new EntityNotFoundException($"There are no failures registered in this BU number {request.bu} ");
+        //TODO: generate logs if the operation fail or if is succesfull.
         return MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSVF>, IEnumerable<FailureRegistrationSYSVFDto>>(sysvfEntity);
     }
 }
