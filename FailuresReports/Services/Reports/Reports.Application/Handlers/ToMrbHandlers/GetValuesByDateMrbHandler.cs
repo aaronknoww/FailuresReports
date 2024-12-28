@@ -1,5 +1,6 @@
 using MediatR;
 using Reports.Application.Dtos;
+using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
 using Reports.Core.Entities;
@@ -18,9 +19,9 @@ public class GetValuesByDateMrbHandler : IRequestHandler<GetValuesByDateQuery<To
     public async Task<IEnumerable<ToMrbDto>> Handle(GetValuesByDateQuery<ToMrbDto> request, CancellationToken cancellationToken)
     {
         IEnumerable<ToMrb> toMrbEntity = await _repository.GetValuesByDateAsync(request.Start, request.End);
-        //TODO: CREATE A CLASS FOR EXEPTIONS
-        if (toMrbEntity == null)
-             throw new ArgumentNullException(nameof(request));
+        if (toMrbEntity == null || toMrbEntity.Count() == 0)
+             throw new EntityNotFoundException($"There is no pending validation {nameof(PendingValidation)}", request);
+        //TODO: generate logs if the operation fail or if is succesfull.
         
         return MapperLazyConf.Mapper.Map<IEnumerable<ToMrb>, IEnumerable<ToMrbDto>>(toMrbEntity);
 

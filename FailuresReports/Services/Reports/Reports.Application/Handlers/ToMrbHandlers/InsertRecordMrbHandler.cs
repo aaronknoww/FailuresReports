@@ -18,7 +18,7 @@ public class InsertRecordMrbHandler : IRequestHandler<InsertRecordCommand<ToMrbD
     public async Task<bool> Handle(InsertRecordCommand<ToMrbDto> request, CancellationToken cancellationToken)
     {
         var mrbEntity = MapperLazyConf.Mapper.Map<ToMrb>(request.EntityDto);
-        //TODO: CREATE A CLASS FOR EXEPTIONS
+        //TODO: create a validator to know if the object is correct.
         if (mrbEntity == null)
              throw new ArgumentException("");
         return await _repository.InsertRecordAsync(mrbEntity);      

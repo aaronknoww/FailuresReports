@@ -1,6 +1,7 @@
 using System;
 using MediatR;
 using Reports.Application.Dtos;
+using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
 using Reports.Core.Entities;
@@ -21,7 +22,8 @@ public class GetBySerialNumberMrbHandler : IRequestHandler<GetBySerialNumberQuer
         ToMrb entity = await _repository.GetBySerialNumberAsync(request.SerialNumber);
         //TODO: CREATE A CLASS FOR EXEPTIONS
         if (entity == null)
-            throw new ArgumentNullException(nameof(request));
+           throw new EntityNotFoundException($"There is no pending validation for this object. {nameof(ToMrb)} ", request.SerialNumber);
+        //TODO: generate logs if the operation fail or if is succesfull.
         return MapperLazyConf.Mapper.Map<ToMrb, ToMrbDto>(entity);
     }
 }

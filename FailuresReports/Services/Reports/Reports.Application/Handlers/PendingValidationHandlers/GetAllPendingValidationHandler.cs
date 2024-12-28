@@ -21,9 +21,10 @@ public class GetAllPendingValidationHandler : IRequestHandler<GetAllPendingValid
     {
         IEnumerable<PendingValidation> pendingEntity = await _repository.GetAllPendingValidationAsync();
         //TODO: Check if request it self don't generate failure in run time.
-        if(pendingEntity == null)
-            throw new EntityNotFoundException(nameof(PendingValidation), request);
+        if (pendingEntity == null || pendingEntity.Count() == 0)
+             throw new EntityNotFoundException($"There are no pendig validations {nameof(request)}.");
         //TODO: generate logs if the operation fail or if is succesfull.
+       
         return MapperLazyConf.Mapper.Map<IEnumerable<PendingValidation>, IEnumerable<PendingValidationDto>>(pendingEntity);
     }
 }

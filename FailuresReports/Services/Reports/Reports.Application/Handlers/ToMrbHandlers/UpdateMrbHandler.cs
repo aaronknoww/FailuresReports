@@ -20,7 +20,7 @@ public class UpdateMrbHandler : IRequestHandler<UpdateCommonCommand<ToMrbDto>, b
         ToMrb mrbEntity = MapperLazyConf.Mapper.Map<ToMrb>(request.EntityDto);
         if (mrbEntity == null)
             throw new ArgumentException("");
-        // TODO: CHECK OBJECT
+        //TODO: MAKE VALIDATION OF OBJECT.
         return await _repository.UpdateAsync(mrbEntity);
         
     }
