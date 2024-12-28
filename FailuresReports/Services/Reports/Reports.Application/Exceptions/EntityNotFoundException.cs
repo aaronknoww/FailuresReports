@@ -8,5 +8,9 @@ public class EntityNotFoundException : ApplicationException
     {
         
     }
+    public EntityNotFoundException(string massege) : base(massege)
+    {
+        
+    } 
 
 }

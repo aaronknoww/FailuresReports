@@ -1,5 +1,6 @@
 using MediatR;
 using Reports.Application.Dtos;
+using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
 using Reports.Core.Entities;
@@ -17,10 +18,11 @@ public class GetFailureByTestStationSysFTHandler : IRequestHandler<GetFailureByT
     }
     public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetFailureByTestStationSysQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
-        var sysftEntity = await _repository.GetAllFailureByTestStationAsync(request.testStation);
-        //TODO: CREATE A CLASS FOR EXEPTIONS
+        IEnumerable<FailureRegistrationSYSFT> sysftEntity = await _repository.GetAllFailureByTestStationAsync(request.testStation);
         if (sysftEntity == null)
-             throw new ArgumentNullException(nameof(request));
+             throw new EntityNotFoundException($"There are no failures registered by testStation number {request.testStation}");
+
+        //TODO: generate logs if the operation fail or if is succesfull.
         return MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSFT>, IEnumerable<FailureRegistrationSYSFTDto>>(sysftEntity);
     }
 }

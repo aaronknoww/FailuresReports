@@ -1,6 +1,7 @@
 using MediatR;
 using Reports.Application.Commands;
 using Reports.Application.Dtos;
+using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Core.Entities;
 using Reports.Core.Repositories;
@@ -17,8 +18,11 @@ public class UpdateSysFTHandler : IRequestHandler<UpdateCommonCommand<FailureReg
     }
     public async Task<bool> Handle(UpdateCommonCommand<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
+        if( request.EntityDto == null )
+            throw new EntityNotFoundException($"There is no failur to update. {nameof(request.EntityDto)}");
         var failureSysFTEntity = MapperLazyConf.Mapper.Map<FailureRegistrationSYSFT>(request.EntityDto);
         //TODO: Object validation
+        //TODO: create logs
         if(failureSysFTEntity == null)
             throw new ArgumentException("");
         

@@ -17,6 +17,7 @@ public class GetBySerialNumberSYSFTHandler : IRequestHandler<GetBySerialNumberQu
     }
     public async Task<FailureRegistrationSYSFTDto> Handle(GetBySerialNumberQuery <FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
+        //TODO: CHECK IF ONE SERIAL NUMBER ONLY COULD HAVE MORE THEN ONE FAILURE REGISTER
         FailureRegistrationSYSFT SysftRepo = await _repository.GetBySerialNumberAsync(request.SerialNumber);
         //TODO: CREATE A CLASS FOR EXEPTIONS
         if (SysftRepo == null)

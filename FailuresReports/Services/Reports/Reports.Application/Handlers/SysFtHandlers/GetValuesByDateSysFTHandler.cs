@@ -1,5 +1,6 @@
 using MediatR;
 using Reports.Application.Dtos;
+using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
 using Reports.Core.Entities;
@@ -18,9 +19,9 @@ public class GetValuesByDateSysFTHandler : IRequestHandler<GetValuesByDateQuery<
     public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetValuesByDateQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
         var sysftEntity = await _repository.GetValuesByDateAsync(request.Start, request.End);
-        //TODO: CREATE A CLASS FOR EXEPTIONS
-        if (sysftEntity == null)
-             throw new ArgumentNullException(nameof(request));
+        if (sysftEntity == null || sysftEntity.Count() == 0)
+             throw new EntityNotFoundException($"There are no failures registered between  {request.Start} and {request.End}.");
+        //TODO: generate logs if the operation fail or if is succesfull.
         return MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSFT>, IEnumerable<FailureRegistrationSYSFTDto>>(sysftEntity);
     }
 }

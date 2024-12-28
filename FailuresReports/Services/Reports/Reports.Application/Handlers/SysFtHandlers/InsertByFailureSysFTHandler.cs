@@ -1,6 +1,7 @@
 using MediatR;
 using Reports.Application.Commands.CommonComan;
 using Reports.Application.Dtos;
+using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Core.Entities;
 using Reports.Core.Repositories;
@@ -17,7 +18,11 @@ public class InsertByFailureSysFTHandler : IRequestHandler<InsertAllByFailiureCo
     }
     public async Task<bool> Handle(InsertAllByFailiureCommonCommand<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
+        if( request.FailuresDto == null || request.FailuresDto.Count() == 0)
+            throw new EntityNotFoundException($"There are no failures to be inserted.");
+        
         //This function only gonna get Failures that are already in a DB
+        //TODO: Validator to check objects to be inserted
 
         //TODO: CHECK IF TRY AND CATCH IS NECESSARY
         IEnumerable<FailureRegistrationSYSFT> failuresSysFT = MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSFT>>(request.FailuresDto);
