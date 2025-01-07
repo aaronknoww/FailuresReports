@@ -19,7 +19,8 @@ public class GetValuesByDatePendingHandler : IRequestHandler<GetValuesByDateQuer
     }
     public async Task<IEnumerable<PendingValidationDto>> Handle(GetValuesByDateQuery<PendingValidationDto> request, CancellationToken cancellationToken)
     {
-        IEnumerable<PendingValidation> pendingEntity = await _repository.GetValuesByDateAsync(request.Start, request.End);
+        //TODO: VALIDATORS FOR REQUEST VALUES
+        IEnumerable<PendingValidation> pendingEntity = await _repository.GetValuesByDateAsync(request.Start, request.End, request.maxRows);
         if (pendingEntity == null || pendingEntity.Count() == 0)
              throw new EntityNotFoundException($"There is no pending validation {nameof(PendingValidation)}", request);
         //TODO: generate logs if the operation fail or if is succesfull.

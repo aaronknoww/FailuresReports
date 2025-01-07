@@ -1,4 +1,3 @@
-using System;
 using MediatR;
 using Reports.Application.Commands.CommonComan;
 using Reports.Application.Dtos;
@@ -17,6 +16,7 @@ public class DeleteBySerialnumberMrbHandler : IRequestHandler<DeleteBySerialnumb
     }
     public async Task<bool> Handle(DeleteBySerialnumberCommonCommand<ToMrbDto> request, CancellationToken cancellationToken)
     {
+        //TODO: CHECK IF THE SERIAL NUMBER HAVE REGISTERS AND ERASE ALL 
         var mrbEntity = await   _repository.GetBySerialNumberAsync(request.SerialNumber);
         if (mrbEntity == null)
             throw new EntityNotFoundException($"There is no failure associated with this serial number {request.SerialNumber}");

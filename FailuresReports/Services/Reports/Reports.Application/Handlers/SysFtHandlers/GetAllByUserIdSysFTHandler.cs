@@ -20,6 +20,7 @@ public class GetAllByUserIdSysFTHandler : IRequestHandler<GetAllByUserIdQuery<Fa
     }
     public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetAllByUserIdQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
+        //TODO: is necessary implement a date range
         IEnumerable<FailureRegistrationSYSFT> sysftEntity = await _repository.GetAllByUserIdAsync(request.userId);
         if (sysftEntity == null || sysftEntity.Count() == 0)
              throw new EntityNotFoundException($"There are no failures registered by user number. {request.userId}");

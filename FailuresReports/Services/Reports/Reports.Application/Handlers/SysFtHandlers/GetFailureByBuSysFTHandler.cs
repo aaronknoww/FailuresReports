@@ -18,6 +18,7 @@ public class GetFailureByBuSysFTHandler : IRequestHandler<GetFailureByBuSysQuery
     }
     public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetFailureByBuSysQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
+        //TODO: is necessary implement a date range and registers limit
         IEnumerable<FailureRegistrationSYSFT> sysftEntity = await _repository.GetAllFailuresByBuAsync(request.bu);
         if (sysftEntity == null || sysftEntity.Count() == 0)
              throw new EntityNotFoundException($"There are no failures registered in this BU number {request.bu} ");

@@ -18,6 +18,7 @@ public class GetValuesByDateSysFTHandler : IRequestHandler<GetValuesByDateQuery<
     }
     public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetValuesByDateQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
+        //TODO: IMPLEMENT ROWS LIMIT SHOW MORE RECIENT DATE FIRST
         var sysftEntity = await _repository.GetValuesByDateAsync(request.Start, request.End);
         if (sysftEntity == null || sysftEntity.Count() == 0)
              throw new EntityNotFoundException($"There are no failures registered between  {request.Start} and {request.End}.");

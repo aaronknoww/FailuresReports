@@ -18,6 +18,8 @@ public class GetFailureByTypeSysFTHandler : IRequestHandler<GetFailureByTypeSysQ
     }
     public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetFailureByTypeSysQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
+        //TODO: is necessary implement a date range and row limts
+        
         IEnumerable<FailureRegistrationSYSFT> sysftEntity = await _repository.GetAllFailureByTypeAsync(request.type);
         
         if (sysftEntity == null || sysftEntity.Count() == 0)

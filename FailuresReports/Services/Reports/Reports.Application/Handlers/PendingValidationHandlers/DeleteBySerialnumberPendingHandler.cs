@@ -17,6 +17,7 @@ public class DeleteBySerialnumberPendingHandler : IRequestHandler<DeleteBySerial
     }
     public async Task<bool> Handle(DeleteBySerialnumberCommonCommand<PendingValidationDto> request, CancellationToken cancellationToken)
     {
+        //TODO: CHECK IF THE SERIAL NUMBER HAVE REGISTERS AND ERASE ALL
         PendingValidation entity = await _repository.GetBySerialNumberAsync(request.SerialNumber);
         //TODO: Logs about failiure.
         if (entity == null)

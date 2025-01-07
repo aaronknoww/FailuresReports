@@ -18,6 +18,7 @@ public class GetAllByUserIdMrbHandler : IRequestHandler<GetAllByUserIdQuery<ToMr
     }
     public async Task<IEnumerable<ToMrbDto>> Handle(GetAllByUserIdQuery<ToMrbDto> request, CancellationToken cancellationToken)
     {
+        //TODO: is necessary implement a date range and rows limt
         IEnumerable<ToMrb> toMrbEntity = await _repository.GetAllByUserIdAsync(request.userId);
         if (toMrbEntity == null || toMrbEntity.Count() == 0)
              throw new EntityNotFoundException(nameof(PendingValidation), request.userId);

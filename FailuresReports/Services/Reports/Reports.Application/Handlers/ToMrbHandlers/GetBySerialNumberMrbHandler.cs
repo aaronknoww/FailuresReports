@@ -20,7 +20,7 @@ public class GetBySerialNumberMrbHandler : IRequestHandler<GetBySerialNumberQuer
     public async Task<ToMrbDto> Handle(GetBySerialNumberQuery<ToMrbDto> request, CancellationToken cancellationToken)
     {
         ToMrb entity = await _repository.GetBySerialNumberAsync(request.SerialNumber);
-        //TODO: CREATE A CLASS FOR EXEPTIONS
+        
         if (entity == null)
            throw new EntityNotFoundException($"There is no pending validation for this object. {nameof(ToMrb)} ", request.SerialNumber);
         //TODO: generate logs if the operation fail or if is succesfull.

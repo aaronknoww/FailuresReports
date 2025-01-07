@@ -18,6 +18,7 @@ public class GetValuesByAreaSysFTHandler : IRequestHandler<GetFailureByAreaSysQu
     }
     public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetFailureByAreaSysQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
+        //TODO: is necessary implement a date range and rows limt
         IEnumerable<FailureRegistrationSYSFT> sysftEntity = await _repository.GetAllFailuresByAreaAsync(request.testArea);
         if (sysftEntity == null || sysftEntity.Count() == 0)
              throw new EntityNotFoundException($"There are no failures registered by this test area {request.testArea}.");

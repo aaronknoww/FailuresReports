@@ -18,6 +18,7 @@ public class GetValuesByDateMrbHandler : IRequestHandler<GetValuesByDateQuery<To
     }
     public async Task<IEnumerable<ToMrbDto>> Handle(GetValuesByDateQuery<ToMrbDto> request, CancellationToken cancellationToken)
     {
+        //TODO: rows limt and show more rescentlies first
         IEnumerable<ToMrb> toMrbEntity = await _repository.GetValuesByDateAsync(request.Start, request.End);
         if (toMrbEntity == null || toMrbEntity.Count() == 0)
              throw new EntityNotFoundException($"There is no pending validation {nameof(PendingValidation)}", request);

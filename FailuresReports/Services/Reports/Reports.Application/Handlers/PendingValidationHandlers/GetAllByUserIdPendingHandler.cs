@@ -1,4 +1,3 @@
-using System;
 using MediatR;
 using Reports.Application.Dtos;
 using Reports.Application.Exceptions;
@@ -11,6 +10,7 @@ namespace Reports.Application.Handlers.PendingValidationHandlers;
 
 public class GetAllByUserIdPendingHandler : IRequestHandler<GetAllByUserIdQuery<PendingValidationDto>, IEnumerable<PendingValidationDto>>
 {
+    //TODO: is necessary implement a date range
     private readonly IPendingValidationRepository _repository;
 
     public GetAllByUserIdPendingHandler(IPendingValidationRepository repository)
@@ -19,7 +19,9 @@ public class GetAllByUserIdPendingHandler : IRequestHandler<GetAllByUserIdQuery<
     }
     public async Task<IEnumerable<PendingValidationDto>> Handle(GetAllByUserIdQuery<PendingValidationDto> request, CancellationToken cancellationToken)
     {
-        IEnumerable<PendingValidation> pendingEntity = await _repository.GetAllByUserIdAsync(request.userId);
+        //TODO: VALIDATOR to check request values
+        
+        IEnumerable<PendingValidation> pendingEntity = await _repository.GetAllByUserIdAsync(request.userId, request.start, request.end, request.maxRows);
         if (pendingEntity == null || pendingEntity.Count() == 0)
              throw new EntityNotFoundException(nameof(PendingValidation), request.userId);
         

@@ -18,8 +18,9 @@ public class GetFailureByTestStationSysFTHandler : IRequestHandler<GetFailureByT
     }
     public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetFailureByTestStationSysQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
+        //TODO: is necessary implement a date range and register limit
         IEnumerable<FailureRegistrationSYSFT> sysftEntity = await _repository.GetAllFailureByTestStationAsync(request.testStation);
-        if (sysftEntity == null)
+        if (sysftEntity == null && sysftEntity.Count() == 0)
              throw new EntityNotFoundException($"There are no failures registered by testStation number {request.testStation}");
 
         //TODO: generate logs if the operation fail or if is succesfull.
