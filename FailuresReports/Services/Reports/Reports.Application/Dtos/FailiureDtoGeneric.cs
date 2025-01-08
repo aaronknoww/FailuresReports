@@ -2,14 +2,10 @@ using System;
 
 namespace Reports.Application.Dtos;
 
-public class FailiureDtoGeneric
-{
-    
+public class FailiureDtoGeneric : BaseDto
+{  
 
-    public int UserId { get; set; }
-    public string UserName { get; set;} = string.Empty;
-    public string SerialNumber { get; set; } = string.Empty;
-    public string BU { get; set; } = string.Empty;
+    
     public string TestArea { get; set; } = string.Empty;
     public string TestStation { get; set; } = string.Empty;
     public string Failure { get; set; } = string.Empty;
