@@ -8,7 +8,7 @@ using Reports.Core.Repositories;
 
 namespace Reports.Application.Handlers.SysFtHandlers;
 
-public class GetValuesByAreaSysFTHandler : IRequestHandler<GetFailureByAreaSysQuery<FailureRegistrationSYSFTDto>, IEnumerable<FailureRegistrationSYSFTDto>>
+public class GetValuesByAreaSysFTHandler : IRequestHandler<GetAllFailureByAreaSysQuery<FailureRegistrationSYSFTDto>, IEnumerable<FailureRegistrationSYSFTDto>>
 {
     private readonly ISYSFTFailureRepository _repository;
 
@@ -16,7 +16,7 @@ public class GetValuesByAreaSysFTHandler : IRequestHandler<GetFailureByAreaSysQu
     {
         this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
-    public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetFailureByAreaSysQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<FailureRegistrationSYSFTDto>> Handle(GetAllFailureByAreaSysQuery<FailureRegistrationSYSFTDto> request, CancellationToken cancellationToken)
     {
         //TODO: is necessary implement a date range and rows limt
         IEnumerable<FailureRegistrationSYSFT> sysftEntity = await _repository.GetAllFailuresByAreaAsync(request.testArea);

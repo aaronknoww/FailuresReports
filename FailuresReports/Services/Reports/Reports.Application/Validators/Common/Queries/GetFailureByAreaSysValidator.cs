@@ -3,7 +3,7 @@ using FluentValidation;
 using Reports.Application.Querys.Common;
 
 namespace Reports.Application.Validators.Common;
-public class GetFailureByAreaSysValidator<Dto> : AbstractValidator<GetFailureByAreaSysQuery<Dto>> where Dto : class
+public class GetFailureByAreaSysValidator<Dto> : AbstractValidator<GetAllFailureByAreaSysQuery<Dto>> where Dto : class
 {
     public GetFailureByAreaSysValidator()
     {

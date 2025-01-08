@@ -8,7 +8,7 @@ using Reports.Application.Exceptions;
 
 namespace Reports.Application.Handlers.SysFtHandlers;
 
-public class GetValuesByAreaSysVFHandler : IRequestHandler<GetFailureByAreaSysQuery<FailureRegistrationSYSVFDto>, IEnumerable<FailureRegistrationSYSVFDto>>
+public class GetValuesByAreaSysVFHandler : IRequestHandler<GetAllFailureByAreaSysQuery<FailureRegistrationSYSVFDto>, IEnumerable<FailureRegistrationSYSVFDto>>
 {
     private readonly ISYSVFFailureRepository _repository;
 
@@ -16,7 +16,7 @@ public class GetValuesByAreaSysVFHandler : IRequestHandler<GetFailureByAreaSysQu
     {
         this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
-    public async Task<IEnumerable<FailureRegistrationSYSVFDto>> Handle(GetFailureByAreaSysQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<FailureRegistrationSYSVFDto>> Handle(GetAllFailureByAreaSysQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
     {
         var sysvfEntity = await _repository.GetAllFailuresByAreaAsync(request.testArea);
         if (sysvfEntity == null || sysvfEntity.Count() == 0)

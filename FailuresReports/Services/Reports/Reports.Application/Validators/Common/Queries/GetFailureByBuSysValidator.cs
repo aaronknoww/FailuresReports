@@ -3,7 +3,7 @@ using Reports.Application.Querys.Common;
 
 namespace Reports.Application.Validators.Common;
 
-public class GetFailureByBuSysValidator<Dto> : AbstractValidator<GetFailureByBuSysQuery<Dto>> where Dto : class
+public class GetFailureByBuSysValidator<Dto> : AbstractValidator<GetAllFailureByBuSysQuery<Dto>> where Dto : class
 {
 
     public GetFailureByBuSysValidator()

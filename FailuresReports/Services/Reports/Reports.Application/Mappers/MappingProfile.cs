@@ -1,4 +1,3 @@
-using System;
 using AutoMapper;
 using Reports.Application.Dtos;
 using Reports.Core.Entities;

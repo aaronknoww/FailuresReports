@@ -1,4 +1,5 @@
 using MediatR;
+using Reports.Application.Dtos;
 using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
@@ -7,8 +8,8 @@ using Reports.Core.Common;
 namespace Reports.Application.Handlers.Common;
 
 public class GetAllByUserIdGenericHandler<TEntity, TDto> : IRequestHandler<GetAllByUserIdQuery<TDto>, IEnumerable<TDto>>
-    where TEntity : class
-    where TDto : class
+    where TEntity : BaseEntity
+    where TDto : BaseDto
 {
     private readonly IGenericRepository<TEntity> _repository;
 
@@ -24,8 +25,8 @@ public class GetAllByUserIdGenericHandler<TEntity, TDto> : IRequestHandler<GetAl
         if (entities == null || !entities.Any())
             throw new EntityNotFoundException(typeof(TEntity).Name, request.userId);
 
-        // Log the operation (optional).
-        Console.WriteLine($"Successfully fetched {entities.Count()} records for userId {request.userId}.");
+        // TODO: CREATE Log the operation (optional).
+        //Console.WriteLine($"Successfully fetched {entities.Count()} records for userId {request.userId}.");
 
         // Map entities to DTOs.
         return MapperLazyConf.Mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);

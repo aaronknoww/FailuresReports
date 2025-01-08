@@ -8,7 +8,7 @@ using Reports.Core.Repositories;
 
 namespace Reports.Application.Handlers.SysFtHandlers;
 
-public class GetFailureByBuSysVFHandler : IRequestHandler<GetFailureByBuSysQuery<FailureRegistrationSYSVFDto>, IEnumerable<FailureRegistrationSYSVFDto>>
+public class GetFailureByBuSysVFHandler : IRequestHandler<GetAllFailureByBuSysQuery<FailureRegistrationSYSVFDto>, IEnumerable<FailureRegistrationSYSVFDto>>
 {
     private readonly ISYSVFFailureRepository _repository;
 
@@ -16,7 +16,7 @@ public class GetFailureByBuSysVFHandler : IRequestHandler<GetFailureByBuSysQuery
     {
         this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
-    public async Task<IEnumerable<FailureRegistrationSYSVFDto>> Handle(GetFailureByBuSysQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<FailureRegistrationSYSVFDto>> Handle(GetAllFailureByBuSysQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
     {
         var sysvfEntity = await _repository.GetAllFailuresByBuAsync(request.bu);
         //TODO: CREATE A CLASS FOR EXEPTIONS
