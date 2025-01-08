@@ -4,7 +4,7 @@ namespace Reports.Application.Dtos;
 
 public class FailiureDtoGeneric
 {
-    //This wrappler is only to be sure that InsertAllByFailiure only recive SysFT and SysVF classes
+    
 
     public int UserId { get; set; }
     public string UserName { get; set;} = string.Empty;
