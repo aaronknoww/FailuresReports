@@ -1,4 +1,3 @@
-using System;
 using MediatR;
 
 namespace Reports.Application.Commands.CommonComan;
