@@ -5,24 +5,22 @@ using Reports.Application.Querys.Common;
 using Reports.Core.Common;
 using Reports.Core.Entities;
 
-namespace FailuresReports.Services.Reports.Reports.Application.Handlers.Common.Queries;
+namespace Reports.Application.Handlers.Common.Queries;
 
-public class GetAllFailureByBuSysCommonHandler<TEntity, TDto> : IRequestHandler<GetAllFailureByBuSysQuery<TDto>, IEnumerable<TDto>>
+public class GetAllFailureByTypeSysCommonHandler<TEntity, TDto> : IRequestHandler<GetAllFailureByTypeSysQuery<TDto>, IEnumerable<TDto>>
 where TEntity : FailureRegistrationGeneric
 where TDto : FailiureDtoGeneric
 {
     private readonly IFailureCommonRepository<TEntity> _repository;
 
-    public GetAllFailureByBuSysCommonHandler(IFailureCommonRepository<TEntity> repository)
+    public GetAllFailureByTypeSysCommonHandler(IFailureCommonRepository<TEntity> repository)
     {
         this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
-
-    public async Task<IEnumerable<TDto>> Handle(GetAllFailureByBuSysQuery<TDto> request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<TDto>> Handle(GetAllFailureByTypeSysQuery<TDto> request, CancellationToken cancellationToken)
     {
-        IEnumerable<TEntity> entities = await _repository.GetAllFailuresByBuAsync(request.bu, request.start, request.end, request.maxRows);
-
-        if (entities == null || !entities.Any())
+        var entities = await _repository.GetAllFailureByTypeAsync(request.type, request.start, request.end, request.maxRows);
+         if (entities == null || !entities.Any())
             //TODO CREATE A EXEPCTION
             throw new ArgumentException("");
             //TODO CREATE LOGS

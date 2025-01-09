@@ -8,7 +8,7 @@ using Reports.Core.Repositories;
 
 namespace Reports.Application.Handlers.ToMrbHandlers;
 
-public class GetValuesByDateMrbHandler : IRequestHandler<GetValuesByDateQuery<ToMrbDto>, IEnumerable<ToMrbDto>>
+public class GetValuesByDateMrbHandler : IRequestHandler<GetAllValuesByDateQuery<ToMrbDto>, IEnumerable<ToMrbDto>>
 {
     private readonly IToMrbRepository _repository;
 
@@ -16,10 +16,10 @@ public class GetValuesByDateMrbHandler : IRequestHandler<GetValuesByDateQuery<To
     {
         this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
-    public async Task<IEnumerable<ToMrbDto>> Handle(GetValuesByDateQuery<ToMrbDto> request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<ToMrbDto>> Handle(GetAllValuesByDateQuery<ToMrbDto> request, CancellationToken cancellationToken)
     {
         //TODO: rows limt and show more rescentlies first
-        IEnumerable<ToMrb> toMrbEntity = await _repository.GetValuesByDateAsync(request.Start, request.End);
+        IEnumerable<ToMrb> toMrbEntity = await _repository.GetAllValuesByDateAsync(request.Start, request.End);
         if (toMrbEntity == null || toMrbEntity.Count() == 0)
              throw new EntityNotFoundException($"There is no pending validation {nameof(PendingValidation)}", request);
         //TODO: generate logs if the operation fail or if is succesfull.

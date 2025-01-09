@@ -3,7 +3,7 @@ using Reports.Application.Querys.Common;
 
 namespace Reports.Application.Validators.Common.Queries;
 
-public class GetValuesByDateValidator<Dto> : AbstractValidator<GetValuesByDateQuery<Dto>> where Dto : class
+public class GetValuesByDateValidator<Dto> : AbstractValidator<GetAllValuesByDateQuery<Dto>> where Dto : class
 {
     public GetValuesByDateValidator()
     {

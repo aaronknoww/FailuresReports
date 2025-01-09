@@ -4,7 +4,7 @@ using Reports.Application.Querys.Common;
 
 namespace Reports.Application.Validators.Common;
 
-public class GetFailureByTestStationSysValidator<Dto> : AbstractValidator<GetFailureByTestStationSysQuery<Dto>> where Dto : class
+public class GetFailureByTestStationSysValidator<Dto> : AbstractValidator<GetAllFailureByTestStationSysQuery<Dto>> where Dto : class
 {
     public GetFailureByTestStationSysValidator()
     {

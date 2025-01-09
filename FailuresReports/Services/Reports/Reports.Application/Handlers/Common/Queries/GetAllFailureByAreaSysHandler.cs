@@ -20,7 +20,7 @@ where TDto : FailiureDtoGeneric
     public async Task<IEnumerable<TDto>> Handle(GetAllFailureByAreaSysQuery<TDto> request, CancellationToken cancellationToken)
     {
         IEnumerable<TEntity> entities = await _repository.GetAllFailuresByAreaAsync(request.testArea, request.start, request.end, request.maxRows);
-        if (entities == null && !entities.Any())
+        if (entities == null || !entities.Any())
             //TODO CREATE A EXEPCTION
             throw new ArgumentException("");
             //TODO CREATE LOGS

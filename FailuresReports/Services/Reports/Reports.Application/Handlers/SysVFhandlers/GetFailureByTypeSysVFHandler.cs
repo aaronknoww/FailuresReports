@@ -8,7 +8,7 @@ using Reports.Core.Repositories;
 
 namespace Reports.Application.Handlers.SysFtHandlers;
 
-public class GetFailureByTypeSysVFHandler : IRequestHandler<GetFailureByTypeSysQuery<FailureRegistrationSYSVFDto>, IEnumerable<FailureRegistrationSYSVFDto>>
+public class GetFailureByTypeSysVFHandler : IRequestHandler<GetAllFailureByTypeSysQuery<FailureRegistrationSYSVFDto>, IEnumerable<FailureRegistrationSYSVFDto>>
 {
     private readonly ISYSVFFailureRepository _repository;
 
@@ -16,7 +16,7 @@ public class GetFailureByTypeSysVFHandler : IRequestHandler<GetFailureByTypeSysQ
     {
         this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
-    public async Task<IEnumerable<FailureRegistrationSYSVFDto>> Handle(GetFailureByTypeSysQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<FailureRegistrationSYSVFDto>> Handle(GetAllFailureByTypeSysQuery<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
     {
         var sysvfEntity = await _repository.GetAllFailureByTypeAsync(request.type);
         

@@ -13,7 +13,7 @@ public interface IGenericRepository<T> where T : class
 
     //Queries.
     Task<T> GetBySerialNumberAsync(string serialNumber);
-    Task<IEnumerable<T>> GetValuesByDateAsync(DateTime start, DateTime end, int maxRows = 50);
+    Task<IEnumerable<T>> GetAllValuesByDateAsync(DateTime start, DateTime end, int maxRows = 50);
     Task<IEnumerable<T>> GetAllByUserIdAsync(int userId, DateTime start, DateTime end, int maxRows=50);
 
 }
