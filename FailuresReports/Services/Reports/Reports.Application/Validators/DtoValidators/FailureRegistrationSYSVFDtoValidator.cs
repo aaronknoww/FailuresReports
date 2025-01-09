@@ -3,7 +3,7 @@ using Reports.Application.Dtos;
 
 namespace Reports.Application.Validators.DtoValidators;
 
-public class FailureRegistrationSYSVFDtoValidator : AbstractValidator<FailureRegistrationSYSVFDto>
+public class FailureRegistrationSYSVFDtoValidator : FailureDtoGenericValidator<FailureRegistrationSYSVFDto>
 {
     public FailureRegistrationSYSVFDtoValidator()
     {
