@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Reports.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+74a11f4015a6b4da0b9d5b5dbd1d1c421715bc5a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+866074f694701f60ead43d55c229cc17d99b1bed")]
 [assembly: System.Reflection.AssemblyProductAttribute("Reports.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Reports.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
