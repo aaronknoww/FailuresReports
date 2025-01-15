@@ -18,8 +18,8 @@ public class GetAllMrbHandler : IRequestHandler<GetAllMrbQuery, IEnumerable<ToMr
     }
     public async Task<IEnumerable<ToMrbDto>> Handle(GetAllMrbQuery request, CancellationToken cancellationToken)
     {
-        //TODO: is necessary implement a date range and rows limt
-        var toMrbEntity = await _repository.GetAllMrbAsync();
+        
+        var toMrbEntity = await _repository.GetAllMrbAsync(request.start, request.end, request.maxRows);
         if (toMrbEntity == null || toMrbEntity.Count() == 0)
              throw new EntityNotFoundException($"There are units sended to MRB {nameof(request)}.");
         //TODO: generate logs if the operation fail or if is succesfull.

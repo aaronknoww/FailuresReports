@@ -1,4 +1,3 @@
-using System;
 using MediatR;
 using Reports.Application.Commands;
 using Reports.Application.Dtos;

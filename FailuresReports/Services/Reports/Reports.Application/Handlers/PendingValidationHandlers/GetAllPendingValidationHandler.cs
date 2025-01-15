@@ -19,7 +19,6 @@ public class GetAllPendingValidationHandler : IRequestHandler<GetAllPendingValid
 
     public async Task<IEnumerable<PendingValidationDto>> Handle(GetAllPendingValidationQuery request, CancellationToken cancellationToken)
     {
-        //TODO: VALIDATOR FOR ALL REQUEST VALUES
         IEnumerable<PendingValidation> pendingEntity = await _repository.GetAllPendingValidationAsync(request.start, request.end, request.maxRows);
 
         if (pendingEntity == null || pendingEntity.Count() == 0)
