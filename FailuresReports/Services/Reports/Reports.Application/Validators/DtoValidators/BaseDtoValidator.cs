@@ -7,13 +7,13 @@ public class BaseDtoValidator<TDto> : AbstractValidator<TDto> where TDto : BaseD
 {
     public BaseDtoValidator()
     {
-        RuleFor(p => p.UserId)
+        RuleFor(p => p.UserId) //TODO: check how to check if the user exist
             .NotEmpty()
             .WithMessage("{userId} is required. ")
             .NotNull()
             .GreaterThan(0)
             .WithMessage("Not negative values are allowed");
-        RuleFor(p => p.UserName) //TODO: check how to check if the user exist
+        RuleFor(p => p.UserName) 
             .NotEmpty()
             .WithMessage("{UserName} is required. ")
             .NotNull();
