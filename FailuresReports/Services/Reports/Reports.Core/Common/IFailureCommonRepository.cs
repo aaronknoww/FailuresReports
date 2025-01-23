@@ -1,5 +1,3 @@
-using System;
-
 namespace Reports.Core.Common;
 
 public interface IFailureCommonRepository<T> : IGenericRepository<T> where T : class

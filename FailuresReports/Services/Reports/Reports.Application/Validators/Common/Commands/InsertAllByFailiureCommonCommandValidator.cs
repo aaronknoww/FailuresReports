@@ -6,7 +6,7 @@ using Reports.Core.Common;
 namespace Reports.Application.Validators.Common.Commands;
 
 public class InsertAllByFailiureCommonCommandValidator<TEntity, TDto> : AbstractValidator<InsertAllByFailiureCommonCommand<TDto>>
-where TEntity : BaseEntity
+where TEntity : FailureRegistrationGeneric
 where TDto : FailiureDtoGeneric
 {
     public InsertAllByFailiureCommonCommandValidator(IValidator<TDto> dtoValidator)
