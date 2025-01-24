@@ -12,12 +12,6 @@ using Reports.Application.Validators.Common.Commands;
 using Reports.Application.Querys.Common;
 using MediatR;
 using Reports.Application.Handlers.Common;
-using FailuresReports.Services.Reports.Reports.Application.Handlers.Common.Queries;
-using Reports.Application.Handlers.Common.Queries;
-using Reports.Application.Handlers.Common.Commnad;
-using Reports.Application.Commands;
-using Reports.Application.Handlers.SysVFhandlers;
-using Reports.Application.Handlers.SysFtHandlers;
 using Reports.Application.Validators.Common;
 using Reports.Application.Validators.Common.Queries;
 
@@ -25,88 +19,71 @@ namespace Reports.Application;
 
 public static class ApplicationServicesRegistration
 {
-    // This class could be separete for registration type, like validartor registration and handlers reg
+    // Main entry point for service registration
     public static IServiceCollection ServiceRegistration(this IServiceCollection services, IConfiguration configuration)
     {
-        // Register AutoMapper profiles
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
-        // Register MediatR
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
-        // Register Validators
+        // Add Handlers and Validators
+        services.AddApplicationHandlers();
+        services.AddApplicationValidators();
+
+        return services;
+    }
+
+    // Handlers Registration
+    public static IServiceCollection AddApplicationHandlers(this IServiceCollection services)
+    {
+        // Generic Query Handlers
+        services.AddScopedHandler<GetAllByUserIdQuery<BaseDto>, GetAllByUserIdGenericHandler<BaseEntity, BaseDto>, IEnumerable<BaseDto>>();
+        services.AddScopedHandler<GetAllFailureByAreaSysQuery<BaseDto>, GetAllFailureByAreaSysHandler<FailureRegistrationGeneric, FailiureDtoGeneric>, IEnumerable<BaseDto>>();
+        services.AddScopedHandler<GetAllFailureByBuSysQuery<BaseDto>, GetAllFailureByBuSysCommonHandler<FailureRegistrationGeneric, FailiureDtoGeneric>, IEnumerable<BaseDto>>();
+        services.AddScopedHandler<GetAllValuesByDateQuery<BaseDto>, GetAllValuesByDateCommonHandler<BaseEntity, BaseDto>, IEnumerable<BaseDto>>();
+
+        // Generic Command Handlers
+        services.AddScopedHandler<DeleteBySerialnumberCommonCommand<BaseDto>, DeleteBySerialnumberCommonCommandHandler<BaseEntity, BaseDto>, bool>();
+        services.AddScopedHandler<InsertRecordCommand<BaseDto>, InsertRecordCommonCommandHandler<BaseEntity, BaseDto>, bool>();
+        services.AddScopedHandler<UpdateCommonCommand<BaseDto>, UpdateCommonCommandHandler<BaseEntity, BaseDto>, bool>();
+
+        // Concrete Command Handlers
+        services.AddScopedHandler<InsertAllByFailiureCommonCommand<FailiureDtoGeneric>, InsertByFailureSysFTHandler, bool>();
+        services.AddScopedHandler<InsertAllByFailiureCommonCommand<FailiureDtoGeneric>, InsertAllByFailureSysVFHandler, bool>();
+
+        return services;
+    }
+
+    // Validators Registration
+    public static IServiceCollection AddApplicationValidators(this IServiceCollection services)
+    {
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-        // Generic Queries handlers registration
-        services.AddScoped(
-            typeof(IRequestHandler<GetAllByUserIdQuery<BaseDto>, IEnumerable<BaseDto>>), typeof(GetAllByUserIdGenericHandler<BaseEntity, BaseDto>));
-
-        services.AddScoped(
-            typeof(IRequestHandler<GetAllFailureByAreaSysQuery<BaseDto>, IEnumerable<BaseDto>>),
-            typeof(GetAllFailureByAreaSysHandler<FailureRegistrationGeneric, FailiureDtoGeneric>));
-
-        services.AddScoped(
-            typeof(IRequestHandler<GetAllFailureByBuSysQuery<BaseDto>, IEnumerable<BaseDto>>),
-            typeof(GetAllFailureByBuSysCommonHandler<FailureRegistrationGeneric, FailiureDtoGeneric>));
-
-        services.AddScoped(
-            typeof(IRequestHandler<GetAllFailureByTestStationSysQuery<BaseDto>, IEnumerable<BaseDto>>),
-            typeof(GetAllFailureByTestStationSysCommonHandler<FailureRegistrationGeneric, FailiureDtoGeneric>));
-
-        services.AddScoped(
-            typeof(IRequestHandler<GetAllFailureByTypeSysQuery<BaseDto>, IEnumerable<BaseDto>>),
-            typeof(GetAllFailureByTypeSysCommonHandler<FailureRegistrationGeneric, FailiureDtoGeneric>));
-
-        services.AddScoped(
-            typeof(IRequestHandler<GetAllFailureByBuSysQuery<BaseDto>, IEnumerable<BaseDto>>),
-            typeof(GetAllFailureByBuSysCommonHandler<FailureRegistrationGeneric, FailiureDtoGeneric>));
-        
-        services.AddScoped(
-            typeof(IRequestHandler<GetAllValuesByDateQuery<BaseDto>, IEnumerable<BaseDto>>),
-            typeof(GetAllValuesByDateCommonHandler<BaseEntity, BaseDto>));
-
-        // Concrete Queries Handlers Registration.
-
-
-        // Generic Command Handlers Registration
-        services.AddScoped(typeof(IRequestHandler<DeleteBySerialnumberCommonCommand<BaseDto>, bool>),typeof(GetAllValuesByDateCommonHandler<BaseEntity, BaseDto>));
-        services.AddScoped(typeof(IRequestHandler<InsertRecordCommand<BaseDto>, bool>),typeof(InsertRecordCommonCommandHandler<BaseEntity, BaseDto>));
-        services.AddScoped(typeof(IRequestHandler<UpdateCommonCommand<BaseDto>, bool>),typeof(UpdateCommonCommandHandler<BaseEntity, BaseDto>));
-        
-        // Concrete Command Handlers Registration
-        services.AddScoped(typeof(IRequestHandler<InsertAllByFailiureCommonCommand<FailiureDtoGeneric>, bool>),typeof(InsertByFailureSysFTHandler));
-        services.AddScoped(typeof(IRequestHandler<InsertAllByFailiureCommonCommand<FailiureDtoGeneric>, bool>),typeof(InsertAllByFailureSysVFHandler));
-
-
-        // ****************************************************************** \\
-        // ************************* VALIDATORS ***************************** \\ 
-        // ****************************************************************** \\
-
-
-        // Register Validators for DTOs
+        // Additional scoped validators for specific scenarios
         services.AddScoped<IValidator<BaseDto>, BaseDtoValidator<BaseDto>>();
         services.AddScoped<IValidator<FailiureDtoGeneric>, FailureDtoGenericValidator<FailiureDtoGeneric>>();
         services.AddScoped<IValidator<FailureRegistrationSYSFTDto>, FailureRegistrationSYSFTDtoValidator>();
         services.AddScoped<IValidator<FailureRegistrationSYSVFDto>, FailureRegistrationSYSVFDtoValidator>();
-        
-        // Register Validators for Common Queries
-        
+
+        // Validators for Queries
         services.AddScoped<IValidator<GetAllByUserIdQuery<BaseDto>>, GetAllByUserIdValidator<BaseDto>>();
         services.AddScoped<IValidator<GetBySerialNumberQuery<BaseDto>>, GetBySerialNumberValidator<BaseDto>>();
         services.AddScoped<IValidator<GetAllFailureByAreaSysQuery<BaseDto>>, GetFailureByAreaSysValidator<BaseDto>>();
-        services.AddScoped<IValidator<GetAllFailureByBuSysQuery<BaseDto>>, GetFailureByBuSysValidator<BaseDto>>();
-        services.AddScoped<IValidator<GetAllFailureByTestStationSysQuery<BaseDto>>, GetFailureByTestStationSysValidator<BaseDto>>();
-        services.AddScoped<IValidator<GetAllFailureByTypeSysQuery<BaseDto>>, GetFailureByTypeSysValidator<BaseDto>>();
-        services.AddScoped<IValidator<GetAllValuesByDateQuery<BaseDto>>, GetValuesByDateValidator<BaseDto>>();
 
-
-        // Register Validators for Common Commands
-
+        // Validators for Commands
         services.AddScoped<IValidator<DeleteBySerialnumberCommonCommand<BaseDto>>, DeleteBySerialnumberCommonValidator<BaseDto>>();
         services.AddScoped<IValidator<InsertRecordCommand<BaseDto>>, InsertRecordCommandCommonValidator<BaseEntity, BaseDto>>();
         services.AddScoped<IValidator<InsertAllByFailiureCommonCommand<FailiureDtoGeneric>>, InsertAllByFailiureCommonCommandValidator<FailureRegistrationGeneric, FailiureDtoGeneric>>();
         services.AddScoped<IValidator<UpdateCommonCommand<BaseDto>>, UpdateCommonCommandValidator<BaseEntity, BaseDto>>();
 
         return services;
+    }
+
+    // Extension method for simplifying handler registrations to avoid typing typeof like services.AddScoped(typeof(IRequestHandler<TRequest, TResponse>), typeof(THandler))
+    private static IServiceCollection AddScopedHandler<TRequest, THandler, TResponse>(
+        this IServiceCollection services)
+        where TRequest : IRequest<TResponse>
+        where THandler : class, IRequestHandler<TRequest, TResponse>
+    {
+        return services.AddScoped(typeof(IRequestHandler<TRequest, TResponse>), typeof(THandler));
     }
 }
