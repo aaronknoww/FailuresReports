@@ -1,3 +1,4 @@
+using AutoMapper;
 using MediatR;
 using Reports.Application.Dtos;
 using Reports.Application.Exceptions;
@@ -13,15 +14,18 @@ public class GetBySerialNumberCommonHandler<TEntity, TDto> : IRequestHandler<Get
 {
     private readonly IGenericRepository<TEntity> _repository;
     private readonly ILogger _logger;
+    private readonly IMapper _mapper;
 
-    public GetBySerialNumberCommonHandler(IGenericRepository<TEntity> repository, ILogger logger)
+    public GetBySerialNumberCommonHandler(IGenericRepository<TEntity> repository, ILogger logger, IMapper mapper)
     {
         this._repository =  repository ?? throw new ArgumentNullException(nameof(repository));
         this._logger = logger;
+        this._mapper = mapper;
     }
 
     public async Task<TDto> Handle(GetBySerialNumberQuery<TDto> request, CancellationToken cancellationToken)
     {
+        //TODO: CHANGE THE RETURN TYPE A LIST BECAUSE EVERY SERIAL COULD BE REGISTER MORE THE ONE RECORD.
         TEntity entitie = await _repository.GetBySerialNumberAsync(request.SerialNumber);
         if (entitie == null)
         {
@@ -32,6 +36,7 @@ public class GetBySerialNumberCommonHandler<TEntity, TDto> : IRequestHandler<Get
         _logger.LogInformation($"Successfully fetched record for this Serial Number {request.SerialNumber}");
 
         // Map entities to DTOs.
-        return MapperLazyConf.Mapper.Map<TEntity, TDto>(entitie);
+        //return MapperLazyConf.Mapper.Map<TEntity, TDto>(entitie);
+        return  _mapper.Map<TEntity, TDto>(entitie);
     }
 }

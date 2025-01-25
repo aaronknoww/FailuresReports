@@ -4,6 +4,7 @@ using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
 using Reports.Core.Common;
+using AutoMapper;
 
 namespace Reports.Application.Handlers.Common;
 
@@ -13,11 +14,13 @@ public class GetAllByUserIdGenericHandler<TEntity, TDto> : IRequestHandler<GetAl
 {
     private readonly IGenericRepository<TEntity> _repository;
     private readonly ILogger _logger;
+    private readonly IMapper _mapper;
 
-    public GetAllByUserIdGenericHandler(IGenericRepository<TEntity> repository, ILogger logger)
+    public GetAllByUserIdGenericHandler(IGenericRepository<TEntity> repository, ILogger logger, IMapper mapper)
     {
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         this._logger = logger;
+        this._mapper = mapper;
     }
 
     public async Task<IEnumerable<TDto>> Handle(GetAllByUserIdQuery<TDto> request, CancellationToken cancellationToken)
@@ -33,6 +36,6 @@ public class GetAllByUserIdGenericHandler<TEntity, TDto> : IRequestHandler<GetAl
         _logger.LogInformation($"Successfully fetched {entities.Count()} records for userId {request.userId}.");
     
         // Map entities to DTOs.
-        return MapperLazyConf.Mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
+        return  _mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
     }
 }

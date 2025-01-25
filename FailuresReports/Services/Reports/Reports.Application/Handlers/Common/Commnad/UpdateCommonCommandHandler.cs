@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Components.Forms.Mapping;
 using Reports.Application.Commands;
 using Reports.Application.Dtos;
 using Reports.Application.Mappers;
@@ -12,16 +13,19 @@ public class UpdateCommonCommandHandler<TEntity, TDto> : IRequestHandler<UpdateC
 {
     private readonly IGenericRepository<TEntity> _repository;
     private readonly ILogger _logger;
+    private readonly IMapper _mapper;
 
-    public UpdateCommonCommandHandler(IGenericRepository<TEntity> repository, ILogger logger)
+    public UpdateCommonCommandHandler(IGenericRepository<TEntity> repository, ILogger logger, IMapper mapper)
     {
         this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
         this._logger = logger;
+        this._mapper = mapper;
     }
 
     public async Task<bool> Handle(UpdateCommonCommand<TDto> request, CancellationToken cancellationToken)
     {
-        var entity = MapperLazyConf.Mapper.Map<TDto, TEntity>(request.EntityDto);
+        //var entity = MapperLazyConf.Mapper.Map<TDto, TEntity>(request.EntityDto);
+        var entity =  _mapper.Map<TDto, TEntity>(request.EntityDto);
         if(await _repository.UpdateAsync(entity))
         {
             _logger.LogInformation($"Successfully updated record for this Entity {nameof(request.EntityDto)}");

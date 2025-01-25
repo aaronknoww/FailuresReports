@@ -1,3 +1,4 @@
+using AutoMapper;
 using MediatR;
 using Reports.Application.Dtos;
 using Reports.Application.Exceptions;
@@ -13,11 +14,13 @@ where TDto : BaseDto
 {
     private readonly IGenericRepository<TEntity> _repository;
     private readonly ILogger _logger;
+    private readonly IMapper _mapper;
 
-    public GetAllValuesByDateCommonHandler(IGenericRepository<TEntity> repository, ILogger logger)
+    public GetAllValuesByDateCommonHandler(IGenericRepository<TEntity> repository, ILogger logger, IMapper mapper)
     {
         this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
         this._logger = logger;
+        this._mapper = mapper;
     }
     public async Task<IEnumerable<TDto>> Handle(GetAllValuesByDateQuery<TDto> request, CancellationToken cancellationToken)
     {
@@ -30,6 +33,6 @@ where TDto : BaseDto
         }
         _logger.LogInformation($"Successfully fetched {entities.Count()} records between the start date {request.start} and end date {request.end}");
 
-         return MapperLazyConf.Mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
+         return  _mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
     }
 }

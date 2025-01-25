@@ -1,3 +1,4 @@
+using AutoMapper;
 using MediatR;
 using Reports.Application.Dtos;
 using Reports.Application.Exceptions;
@@ -14,11 +15,13 @@ where TDto : FailiureDtoGeneric
 {
     private readonly IFailureCommonRepository<TEntity> _repository;
     private readonly ILogger _logger;
+    private readonly IMapper _mapper;
 
-    public GetAllFailureByTestStationSysCommonHandler(IFailureCommonRepository<TEntity> repository, ILogger logger)
+    public GetAllFailureByTestStationSysCommonHandler(IFailureCommonRepository<TEntity> repository, ILogger logger, IMapper mapper)
     {
         this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
         this._logger = logger;
+        this._mapper = mapper;
     }
 
     public async Task<IEnumerable<TDto>> Handle(GetAllFailureByTestStationSysQuery<TDto> request, CancellationToken cancellationToken)
@@ -31,6 +34,7 @@ where TDto : FailiureDtoGeneric
          }
          _logger.LogInformation($"Successfully fetched {entities.Count()} records for this Test Station {request.testStation}");          
 
-         return MapperLazyConf.Mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
+         //return MapperLazyConf.Mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
+         return  _mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
     }
 }

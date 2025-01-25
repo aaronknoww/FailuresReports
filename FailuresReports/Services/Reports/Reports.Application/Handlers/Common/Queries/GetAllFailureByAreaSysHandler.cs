@@ -5,6 +5,7 @@ using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
 using Reports.Core.Common;
 using Reports.Core.Entities;
+using AutoMapper;
 
 namespace FailuresReports.Services.Reports.Reports.Application.Handlers.Common.Queries;
 
@@ -14,11 +15,13 @@ where TDto : FailiureDtoGeneric
 {
     private readonly IFailureCommonRepository<TEntity> _repository;
     private readonly ILogger _logger;
+    private readonly IMapper _mapper;
 
-    public GetAllFailureByAreaSysHandler(IFailureCommonRepository<TEntity> repository, ILogger logger)
+    public GetAllFailureByAreaSysHandler(IFailureCommonRepository<TEntity> repository, ILogger logger, IMapper mapper)
     {
         this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
         this._logger = logger;
+        this._mapper = mapper;
     }
     public async Task<IEnumerable<TDto>> Handle(GetAllFailureByAreaSysQuery<TDto> request, CancellationToken cancellationToken)
     {
@@ -30,7 +33,8 @@ where TDto : FailiureDtoGeneric
         }    
             _logger.LogInformation($"Successfully fetched {entities.Count()} records for this test area {request.testArea}");
 
-         return MapperLazyConf.Mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
+         //return MapperLazyConf.Mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
+         return  _mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
 
     }
 }

@@ -14,11 +14,13 @@ where TDto : FailiureDtoGeneric
 {
     private readonly IFailureCommonRepository<TEntity> _repository;
     private readonly ILogger _logger;
+    private readonly IMapper _mapper;
 
-    public GetAllFailureByTypeSysCommonHandler(IFailureCommonRepository<TEntity> repository, ILogger logger)
+    public GetAllFailureByTypeSysCommonHandler(IFailureCommonRepository<TEntity> repository, ILogger logger, IMapper mapper)
     {
         this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
         this._logger = logger;
+        this._mapper = mapper;
     }
     public async Task<IEnumerable<TDto>> Handle(GetAllFailureByTypeSysQuery<TDto> request, CancellationToken cancellationToken)
     {
@@ -30,6 +32,6 @@ where TDto : FailiureDtoGeneric
         }
         _logger.LogInformation($"Successfully fetched {entities.Count()} records for this type of failiure {request.type}");
 
-         return MapperLazyConf.Mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
+         return  _mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
     }
 }

@@ -29,6 +29,7 @@ public static class ApplicationServicesRegistration
     // Main entry point for service registration
     public static IServiceCollection ServiceRegistration(this IServiceCollection services, IConfiguration configuration)
     {
+        //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
