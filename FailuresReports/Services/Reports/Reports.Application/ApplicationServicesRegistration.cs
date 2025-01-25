@@ -14,6 +14,13 @@ using MediatR;
 using Reports.Application.Handlers.Common;
 using Reports.Application.Validators.Common;
 using Reports.Application.Validators.Common.Queries;
+using FailuresReports.Services.Reports.Reports.Application.Handlers.Common.Queries;
+using Reports.Application.Handlers.Common.Queries;
+using Reports.Application.Commands;
+using Reports.Application.Handlers.Common.Commnad;
+using Reports.Application.Handlers.SysVFhandlers;
+using Reports.Application.Handlers.SysFtHandlers;
+using Reports.Application.Validators;
 
 namespace Reports.Application;
 
@@ -37,18 +44,18 @@ public static class ApplicationServicesRegistration
     {
         // Generic Query Handlers
         services.AddScopedHandler<GetAllByUserIdQuery<BaseDto>, GetAllByUserIdGenericHandler<BaseEntity, BaseDto>, IEnumerable<BaseDto>>();
-        services.AddScopedHandler<GetAllFailureByAreaSysQuery<BaseDto>, GetAllFailureByAreaSysHandler<FailureRegistrationGeneric, FailiureDtoGeneric>, IEnumerable<BaseDto>>();
-        services.AddScopedHandler<GetAllFailureByBuSysQuery<BaseDto>, GetAllFailureByBuSysCommonHandler<FailureRegistrationGeneric, FailiureDtoGeneric>, IEnumerable<BaseDto>>();
+        services.AddScopedHandler<GetAllFailureByAreaSysQuery<FailiureDtoGeneric>, GetAllFailureByAreaSysHandler<FailureRegistrationGeneric, FailiureDtoGeneric>, IEnumerable<FailiureDtoGeneric>>();
+        services.AddScopedHandler<GetAllFailureByBuSysQuery<FailiureDtoGeneric>, GetAllFailureByBuSysCommonHandler<FailureRegistrationGeneric, FailiureDtoGeneric>, IEnumerable<FailiureDtoGeneric>>();
         services.AddScopedHandler<GetAllValuesByDateQuery<BaseDto>, GetAllValuesByDateCommonHandler<BaseEntity, BaseDto>, IEnumerable<BaseDto>>();
 
         // Generic Command Handlers
-        services.AddScopedHandler<DeleteBySerialnumberCommonCommand<BaseDto>, DeleteBySerialnumberCommonCommandHandler<BaseEntity, BaseDto>, bool>();
+        services.AddScopedHandler<DeleteBySerialnumberCommonCommand<BaseDto>, DeleteBySerialnumberCommonHandler<BaseEntity, BaseDto>, bool>();
         services.AddScopedHandler<InsertRecordCommand<BaseDto>, InsertRecordCommonCommandHandler<BaseEntity, BaseDto>, bool>();
         services.AddScopedHandler<UpdateCommonCommand<BaseDto>, UpdateCommonCommandHandler<BaseEntity, BaseDto>, bool>();
 
         // Concrete Command Handlers
-        services.AddScopedHandler<InsertAllByFailiureCommonCommand<FailiureDtoGeneric>, InsertByFailureSysFTHandler, bool>();
-        services.AddScopedHandler<InsertAllByFailiureCommonCommand<FailiureDtoGeneric>, InsertAllByFailureSysVFHandler, bool>();
+        services.AddScopedHandler<InsertAllByFailiureCommonCommand<FailureRegistrationSYSFTDto>, InsertByFailureSysFTHandler, bool>();
+        services.AddScopedHandler<InsertAllByFailiureCommonCommand<FailureRegistrationSYSVFDto>, InsertAllByFailureSysVFHandler, bool>();
 
         return services;
     }
@@ -67,7 +74,7 @@ public static class ApplicationServicesRegistration
         // Validators for Queries
         services.AddScoped<IValidator<GetAllByUserIdQuery<BaseDto>>, GetAllByUserIdValidator<BaseDto>>();
         services.AddScoped<IValidator<GetBySerialNumberQuery<BaseDto>>, GetBySerialNumberValidator<BaseDto>>();
-        services.AddScoped<IValidator<GetAllFailureByAreaSysQuery<BaseDto>>, GetFailureByAreaSysValidator<BaseDto>>();
+        services.AddScoped<IValidator<GetAllFailureByAreaSysQuery<FailiureDtoGeneric>>, GetFailureByAreaSysValidator<FailiureDtoGeneric>>();
 
         // Validators for Commands
         services.AddScoped<IValidator<DeleteBySerialnumberCommonCommand<BaseDto>>, DeleteBySerialnumberCommonValidator<BaseDto>>();

@@ -1,9 +1,10 @@
 using FluentValidation;
 using Reports.Application.Commands.CommonComan;
+using Reports.Application.Dtos;
 
 namespace Reports.Application.Validators;
 
-public class DeleteBySerialnumberCommonValidator<Dto> : AbstractValidator<DeleteBySerialnumberCommonCommand<Dto>> where Dto : class
+public class DeleteBySerialnumberCommonValidator<Dto> : AbstractValidator<DeleteBySerialnumberCommonCommand<Dto>> where Dto : BaseDto
 {
     public DeleteBySerialnumberCommonValidator()
     {

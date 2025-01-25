@@ -10,7 +10,7 @@ public class InsertRecordCommonCommandHandler<TEntity, TDto> : IRequestHandler<I
     where TEntity : BaseEntity
     where TDto : BaseDto
 {
-    private readonly IGenericRepository<TEntity> _repository;
+    private readonly IGenericRepository<TEntity> _repository
     private readonly ILogger _logger;
 
     public InsertRecordCommonCommandHandler(IGenericRepository<TEntity> repository, ILogger logger)
