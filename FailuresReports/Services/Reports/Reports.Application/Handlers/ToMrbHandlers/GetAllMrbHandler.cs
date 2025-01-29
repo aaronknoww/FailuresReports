@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Reports.Application.Dtos;
 using Reports.Application.Exceptions;
 using Reports.Application.Mappers;

@@ -1,11 +1,11 @@
 using MediatR;
 using Reports.Application.Dtos;
 using Reports.Application.Exceptions;
-using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
 using Reports.Core.Common;
 using Reports.Core.Entities;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace FailuresReports.Services.Reports.Reports.Application.Handlers.Common.Queries;
 

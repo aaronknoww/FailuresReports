@@ -1,9 +1,9 @@
 using MediatR;
 using Reports.Application.Commands.CommonComan;
 using Reports.Application.Dtos;
-using Reports.Application.Mappers;
 using Reports.Core.Common;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace Reports.Application.Handlers.Common.Commnad;
 

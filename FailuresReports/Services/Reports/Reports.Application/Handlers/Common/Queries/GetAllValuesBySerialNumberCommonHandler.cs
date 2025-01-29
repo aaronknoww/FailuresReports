@@ -2,7 +2,6 @@ using AutoMapper;
 using MediatR;
 using Reports.Application.Dtos;
 using Reports.Application.Exceptions;
-using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
 using Reports.Core.Common;
 using Microsoft.Extensions.Logging;

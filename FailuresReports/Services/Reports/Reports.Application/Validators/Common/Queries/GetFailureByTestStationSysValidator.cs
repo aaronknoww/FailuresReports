@@ -1,4 +1,3 @@
-using System;
 using FluentValidation;
 using Reports.Application.Querys.Common;
 

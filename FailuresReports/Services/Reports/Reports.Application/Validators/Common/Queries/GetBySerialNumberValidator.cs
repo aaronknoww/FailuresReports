@@ -1,9 +1,10 @@
 using FluentValidation;
+using Reports.Application.Dtos;
 using Reports.Application.Querys.Common;
 
 namespace Reports.Application.Validators.Common;
 
-public class GetBySerialNumberValidator<Dto> : AbstractValidator<GetAllValuesBySerialNumberQuery<Dto>> where Dto : class
+public class GetBySerialNumberValidator<Dto> : AbstractValidator<GetAllValuesBySerialNumberQuery<Dto>> where Dto : BaseDto
 {
     public GetBySerialNumberValidator()
     {

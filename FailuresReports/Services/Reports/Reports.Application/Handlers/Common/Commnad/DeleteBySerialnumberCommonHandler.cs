@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Reports.Application.Commands.CommonComan;
 using Reports.Application.Dtos;
 using Reports.Core.Common;

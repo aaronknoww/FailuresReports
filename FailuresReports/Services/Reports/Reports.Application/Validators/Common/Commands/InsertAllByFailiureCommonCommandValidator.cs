@@ -1,7 +1,6 @@
 using FluentValidation;
 using Reports.Application.Commands.CommonComan;
 using Reports.Application.Dtos;
-using Reports.Core.Common;
 using Reports.Core.Entities;
 
 namespace Reports.Application.Validators.Common.Commands;

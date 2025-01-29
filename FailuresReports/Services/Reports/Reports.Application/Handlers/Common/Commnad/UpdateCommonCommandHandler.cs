@@ -1,5 +1,6 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using Reports.Application.Commands;
 using Reports.Application.Dtos;
 using Reports.Core.Common;
