@@ -1,6 +1,8 @@
+using Reports.Core.Entities;
+
 namespace Reports.Core.Common;
 
-public interface IFailureCommonRepository<T> : IGenericRepository<T> where T : class
+public interface IFailureCommonRepository<T> : IGenericRepository<T> where T : FailureRegistrationGeneric
 {
     Task<IEnumerable<T>> GetAllFailuresByAreaAsync(string testArea, DateTime start, DateTime end, int maxRows=50);
     Task<IEnumerable<T>> GetAllFailureByTypeAsync(string type, DateTime start, DateTime end, int maxRows=50); // return all register with that fail name.

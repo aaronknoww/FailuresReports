@@ -5,6 +5,7 @@ using Reports.Application.Exceptions;
 using Reports.Application.Querys.Common;
 using Reports.Core.Common;
 using Reports.Core.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace FailuresReports.Services.Reports.Reports.Application.Handlers.Common.Queries;
 
@@ -13,14 +14,17 @@ where TEntity : FailureRegistrationGeneric
 where TDto : FailiureDtoGeneric
 {
     private readonly IFailureCommonRepository<TEntity> _repository;
-    private readonly ILogger _logger;
+    private readonly ILogger<GetAllFailureByBuSysCommonHandler<TEntity, TDto>> _logger;
     private readonly IMapper _mapper;
 
-    public GetAllFailureByBuSysCommonHandler(IFailureCommonRepository<TEntity> repository, ILogger logger, IMapper mapper)
+    public GetAllFailureByBuSysCommonHandler(
+        IFailureCommonRepository<TEntity> repository,
+        ILogger<GetAllFailureByBuSysCommonHandler<TEntity, TDto>> logger,
+        IMapper mapper)
     {
-        this._repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        this._logger = logger;
-        this._mapper = mapper;
+        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        _logger = logger;
+        _mapper = mapper;
     }
 
     public async Task<IEnumerable<TDto>> Handle(GetAllFailureByBuSysQuery<TDto> request, CancellationToken cancellationToken)
@@ -28,12 +32,12 @@ where TDto : FailiureDtoGeneric
         IEnumerable<TEntity> entities = await _repository.GetAllFailuresByBuAsync(request.bu, request.start, request.end, request.maxRows);
 
         if (entities == null || !entities.Any())
-        { 
-            _logger.LogError($"There is not information related to this BU {request.bu}, and this start date {request.start} and end date {request.end}");
-            throw new RegistersNotFoundException("There is a null entity or not exist registers in DB");
+        {
+            _logger.LogError($"There is no information related to BU {request.bu}, start date {request.start}, and end date {request.end}.");
+            throw new RegistersNotFoundException("There is a null entity or no registers in the database.");
         }
-       _logger.LogInformation($"Successfully fetched {entities.Count()} records for this BU {request.bu}");    
+        _logger.LogInformation($"Successfully fetched {entities.Count()} records for BU {request.bu}.");
 
-         return  _mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
+        return _mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entities);
     }
 }

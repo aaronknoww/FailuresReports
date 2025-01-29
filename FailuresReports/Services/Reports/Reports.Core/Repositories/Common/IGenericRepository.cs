@@ -1,6 +1,6 @@
 namespace Reports.Core.Common;
 
-public interface IGenericRepository<T> where T : class
+public interface IGenericRepository<T> where T : BaseEntity
 {
     // Metodos genericos para cualquier tabla de una base de datos para hacer el CRUD.
 
@@ -12,8 +12,8 @@ public interface IGenericRepository<T> where T : class
     
 
     //Queries.
-    Task<T> GetBySerialNumberAsync(string serialNumber);
+    Task<IEnumerable<T>> GetAllValuesBySerialNumberAsync(string serialNumber);
     Task<IEnumerable<T>> GetAllValuesByDateAsync(DateTime start, DateTime end, int maxRows = 50);
-    Task<IEnumerable<T>> GetAllByUserIdAsync(int userId, DateTime start, DateTime end, int maxRows=50);
+    Task<IEnumerable<T>> GetAllValuesByUserIdAsync(int userId, DateTime start, DateTime end, int maxRows=50);
 
 }

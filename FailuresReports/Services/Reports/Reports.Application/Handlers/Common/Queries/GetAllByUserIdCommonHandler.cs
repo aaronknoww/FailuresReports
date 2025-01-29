@@ -26,7 +26,7 @@ public class GetAllByUserIdGenericHandler<TEntity, TDto> : IRequestHandler<GetAl
     public async Task<IEnumerable<TDto>> Handle(GetAllByUserIdQuery<TDto> request, CancellationToken cancellationToken)
     {
         // Fetch entities from the repository.
-        IEnumerable<TEntity> entities = await _repository.GetAllByUserIdAsync(request.userId, request.start, request.end, request.maxRows);
+        IEnumerable<TEntity> entities = await _repository.GetAllValuesByUserIdAsync(request.userId, request.start, request.end, request.maxRows);
         if (entities == null || !entities.Any())
         {
             _logger.LogError($"There is not information related to this user {request.userId}, and this start date {request.start} and end date {request.end}");

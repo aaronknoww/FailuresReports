@@ -5,6 +5,7 @@ using Reports.Application.Dtos;
 using Reports.Application.Mappers;
 using Reports.Core.Entities;
 using Reports.Core.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace Reports.Application.Handlers.SysVFhandlers;
 

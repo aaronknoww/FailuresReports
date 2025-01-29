@@ -74,7 +74,7 @@ public static class ApplicationServicesRegistration
 
         // Validators for Queries
         services.AddScoped<IValidator<GetAllByUserIdQuery<BaseDto>>, GetAllByUserIdValidator<BaseDto>>();
-        services.AddScoped<IValidator<GetBySerialNumberQuery<BaseDto>>, GetBySerialNumberValidator<BaseDto>>();
+        services.AddScoped<IValidator<GetAllValuesBySerialNumberQuery<BaseDto>>, GetBySerialNumberValidator<BaseDto>>();
         services.AddScoped<IValidator<GetAllFailureByAreaSysQuery<FailiureDtoGeneric>>, GetFailureByAreaSysValidator<FailiureDtoGeneric>>();
 
         // Validators for Commands

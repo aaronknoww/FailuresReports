@@ -5,10 +5,11 @@ using Reports.Application.Exceptions;
 using Reports.Application.Mappers;
 using Reports.Application.Querys.Common;
 using Reports.Core.Common;
+using Microsoft.Extensions.Logging;
 
 namespace Reports.Application.Handlers.Common;
 
-public class GetBySerialNumberCommonHandler<TEntity, TDto> : IRequestHandler<GetBySerialNumberQuery<TDto>, TDto>
+public class GetAllValuesBySerialNumberCommonHandler<TEntity, TDto> : IRequestHandler<GetAllValuesBySerialNumberQuery<TDto>, IEnumerable<TDto>>
     where TEntity : BaseEntity
     where TDto : BaseDto
 {
@@ -16,17 +17,16 @@ public class GetBySerialNumberCommonHandler<TEntity, TDto> : IRequestHandler<Get
     private readonly ILogger _logger;
     private readonly IMapper _mapper;
 
-    public GetBySerialNumberCommonHandler(IGenericRepository<TEntity> repository, ILogger logger, IMapper mapper)
+    public GetAllValuesBySerialNumberCommonHandler(IGenericRepository<TEntity> repository, ILogger logger, IMapper mapper)
     {
         this._repository =  repository ?? throw new ArgumentNullException(nameof(repository));
         this._logger = logger;
         this._mapper = mapper;
     }
 
-    public async Task<TDto> Handle(GetBySerialNumberQuery<TDto> request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<TDto>> Handle(GetAllValuesBySerialNumberQuery<TDto> request, CancellationToken cancellationToken)
     {
-        //TODO: CHANGE THE RETURN TYPE A LIST BECAUSE EVERY SERIAL COULD BE REGISTER MORE THE ONE RECORD.
-        TEntity entitie = await _repository.GetBySerialNumberAsync(request.SerialNumber);
+        IEnumerable<TEntity> entitie = await _repository.GetAllValuesBySerialNumberAsync(request.SerialNumber);
         if (entitie == null)
         {
             _logger.LogError($"There is not information related to this Serial Number {request.SerialNumber} ");
@@ -37,6 +37,6 @@ public class GetBySerialNumberCommonHandler<TEntity, TDto> : IRequestHandler<Get
 
         // Map entities to DTOs.
         //return MapperLazyConf.Mapper.Map<TEntity, TDto>(entitie);
-        return  _mapper.Map<TEntity, TDto>(entitie);
+        return  _mapper.Map<IEnumerable<TEntity>, IEnumerable<TDto>>(entitie);
     }
 }

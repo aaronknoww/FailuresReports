@@ -1,9 +1,10 @@
 using FluentValidation;
+using Reports.Application.Dtos;
 using Reports.Application.Querys.Common;
 
 namespace Reports.Application.Validators.Common.Queries;
 
-public class GetValuesByDateValidator<Dto> : AbstractValidator<GetAllValuesByDateQuery<Dto>> where Dto : class
+public class GetValuesByDateValidator<Dto> : AbstractValidator<GetAllValuesByDateQuery<Dto>> where Dto : BaseDto
 {
     public GetValuesByDateValidator()
     {

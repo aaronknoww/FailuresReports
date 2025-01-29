@@ -3,7 +3,7 @@ using Reports.Application.Querys.Common;
 
 namespace Reports.Application.Validators.Common;
 
-public class GetBySerialNumberValidator<Dto> : AbstractValidator<GetBySerialNumberQuery<Dto>> where Dto : class
+public class GetBySerialNumberValidator<Dto> : AbstractValidator<GetAllValuesBySerialNumberQuery<Dto>> where Dto : class
 {
     public GetBySerialNumberValidator()
     {

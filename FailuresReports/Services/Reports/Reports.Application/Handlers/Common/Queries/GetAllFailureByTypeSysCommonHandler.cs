@@ -1,3 +1,4 @@
+using AutoMapper;
 using MediatR;
 using Reports.Application.Dtos;
 using Reports.Application.Exceptions;
