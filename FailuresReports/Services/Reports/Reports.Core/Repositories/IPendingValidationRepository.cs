@@ -3,8 +3,8 @@ using Reports.Core.Entities;
 
 namespace Reports.Core.Repositories;
 
-public interface IPendingValidationRepository : IGenericRepository<PendingValidation>
+public interface IPendingValidationRepository : IGenericRepository<PendingValidationEntity>
 {
-    Task<IEnumerable<PendingValidation>> GetAllPendingValidationAsync(DateTime start, DateTime end, int maxRows = 50);
+    Task<IEnumerable<PendingValidationEntity>> GetAllPendingValidationAsync(DateTime start, DateTime end, int maxRows = 50);
 
 }

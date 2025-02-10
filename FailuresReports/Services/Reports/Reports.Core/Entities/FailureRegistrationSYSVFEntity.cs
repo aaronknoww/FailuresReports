@@ -1,6 +1,6 @@
 namespace Reports.Core.Entities;
 
-public class FailureRegistrationSYSVF : FailureRegistrationGeneric
+public class FailureRegistrationSYSVFEntity : FailureRegistrationGeneric
 {
     public string Master { get; set; } = string.Empty;
     public byte Slot { get; set; }

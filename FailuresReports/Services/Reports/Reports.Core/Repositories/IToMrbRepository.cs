@@ -3,8 +3,8 @@ using Reports.Core.Entities;
 
 namespace Reports.Core.Repositories;
 
-public interface IToMrbRepository : IGenericRepository<ToMrb>
+public interface IToMrbRepository : IGenericRepository<ToMrbEntity>
 {
-    Task<IEnumerable<ToMrb>> GetAllMrbAsync(DateTime start, DateTime end, int maxRows = 50);
+    Task<IEnumerable<ToMrbEntity>> GetAllMrbAsync(DateTime start, DateTime end, int maxRows = 50);
 
 }

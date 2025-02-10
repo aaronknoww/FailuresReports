@@ -2,7 +2,7 @@ using System;
 
 namespace Reports.Core.Entities;
 
-public class FailureRegistrationSYSFT : FailureRegistrationGeneric
+public class FailureRegistrationSYSFTEntity : FailureRegistrationGeneric
 {
     public string TestCell { get; set; } = string.Empty;
 

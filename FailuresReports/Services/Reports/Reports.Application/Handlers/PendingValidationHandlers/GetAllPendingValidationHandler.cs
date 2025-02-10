@@ -24,7 +24,7 @@ public class GetAllPendingValidationHandler : IRequestHandler<GetAllPendingValid
     {
         //TODO: CHECK IF THIS CLASS IS NECESSARY DUE TO GETALLBYDATE.
         
-        IEnumerable<PendingValidation> pendingEntity = await _repository.GetAllPendingValidationAsync(request.start, request.end, request.maxRows);
+        IEnumerable<PendingValidationEntity> pendingEntity = await _repository.GetAllPendingValidationAsync(request.start, request.end, request.maxRows);
 
          if (pendingEntity == null || !pendingEntity.Any())
         {
@@ -34,6 +34,6 @@ public class GetAllPendingValidationHandler : IRequestHandler<GetAllPendingValid
         _logger.LogInformation($"Successfully fetched {pendingEntity.Count()} records between the start date {request.start} and end date {request.end}");
 
        
-        return MapperLazyConf.Mapper.Map<IEnumerable<PendingValidation>, IEnumerable<PendingValidationDto>>(pendingEntity);
+        return MapperLazyConf.Mapper.Map<IEnumerable<PendingValidationEntity>, IEnumerable<PendingValidationDto>>(pendingEntity);
     }
 }

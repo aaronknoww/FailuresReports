@@ -23,7 +23,7 @@ public class GetAllMrbHandler : IRequestHandler<GetAllMrbQuery, IEnumerable<ToMr
     {
         //TODO: CHECK IF THIS CLASS IS NECESARY DUE TO EXIST GETALLVALUESBYDATE.
 
-        IEnumerable<ToMrb> toMrbEntity = await _repository.GetAllMrbAsync(request.start, request.end, request.maxRows);
+        IEnumerable<ToMrbEntity> toMrbEntity = await _repository.GetAllMrbAsync(request.start, request.end, request.maxRows);
          if (toMrbEntity == null || !toMrbEntity.Any())
         {
             _logger.LogError($"There is not information between start date {request.start} and end date {request.end}");
@@ -31,7 +31,7 @@ public class GetAllMrbHandler : IRequestHandler<GetAllMrbQuery, IEnumerable<ToMr
         }
         _logger.LogInformation($"Successfully fetched {toMrbEntity.Count()} records between the start date {request.start} and end date {request.end}");
 
-        return MapperLazyConf.Mapper.Map<IEnumerable<ToMrb>, IEnumerable<ToMrbDto>>(toMrbEntity);        
+        return MapperLazyConf.Mapper.Map<IEnumerable<ToMrbEntity>, IEnumerable<ToMrbDto>>(toMrbEntity);        
         
     }
 }

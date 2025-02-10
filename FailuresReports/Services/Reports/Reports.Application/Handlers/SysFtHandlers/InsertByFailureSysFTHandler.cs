@@ -25,7 +25,7 @@ public class InsertByFailureSysFTHandler : IRequestHandler<InsertAllByFailiureCo
         //TODO: Validator to check objects to be inserted
 
         //TODO: CHECK IF TRY AND CATCH IS NECESSARY
-        IEnumerable<FailureRegistrationSYSFT> failuresSysFT = MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSFT>>(request.FailuresDto);
+        IEnumerable<FailureRegistrationSYSFTEntity> failuresSysFT = MapperLazyConf.Mapper.Map<IEnumerable<FailureRegistrationSYSFTEntity>>(request.FailuresDto);
         return await _repository.InsertAllByFailure(failuresSysFT);
     }
 }

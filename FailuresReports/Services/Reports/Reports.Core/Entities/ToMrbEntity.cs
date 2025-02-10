@@ -3,7 +3,7 @@ using Reports.Core.Common;
 
 namespace Reports.Core.Entities;
 
-public class ToMrb : BaseEntity
+public class ToMrbEntity : BaseEntity
 {
     public string Component { get; set; } = string.Empty;
     public string Reason { get; set; } = string.Empty ;

@@ -9,10 +9,10 @@ public class MappingProfile : Profile
 {
     public MappingProfile() 
     {
-        CreateMap<FailureRegistrationSYSFT,FailureRegistrationSYSFTDto>().ReverseMap();
-        CreateMap<FailureRegistrationSYSVF,FailureRegistrationSYSVFDto>().ReverseMap();
-        CreateMap<PendingValidation, PendingValidationDto>().ReverseMap();
-        CreateMap<ToMrb, ToMrbDto>().ReverseMap();
+        CreateMap<FailureRegistrationSYSFTEntity,FailureRegistrationSYSFTDto>().ReverseMap();
+        CreateMap<FailureRegistrationSYSVFEntity,FailureRegistrationSYSVFDto>().ReverseMap();
+        CreateMap<PendingValidationEntity, PendingValidationDto>().ReverseMap();
+        CreateMap<ToMrbEntity, ToMrbDto>().ReverseMap();
         CreateMap<BaseEntity, BaseDto>().ReverseMap();        
     }
 

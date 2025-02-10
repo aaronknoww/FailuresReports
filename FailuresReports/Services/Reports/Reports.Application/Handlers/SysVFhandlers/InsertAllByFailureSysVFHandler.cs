@@ -24,7 +24,7 @@ public class InsertAllByFailureSysVFHandler : IRequestHandler<InsertAllByFailiur
 
     public async Task<bool> Handle(InsertAllByFailiureCommonCommand<FailureRegistrationSYSVFDto> request, CancellationToken cancellationToken)
     {
-        IEnumerable<FailureRegistrationSYSVF> sysVFFailures =  _mapper.Map<IEnumerable<FailureRegistrationSYSVF>>(request.FailuresDto);
+        IEnumerable<FailureRegistrationSYSVFEntity> sysVFFailures =  _mapper.Map<IEnumerable<FailureRegistrationSYSVFEntity>>(request.FailuresDto);
         return await _repository.InsertAllByFailure(sysVFFailures);
     }
 }

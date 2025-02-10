@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "JgzDUw0v7j4=",
+  "dgSpecHash": "aMPk2axpQ/8=",
   "success": true,
   "projectFilePath": "/workspaces/FailuresReports/FailuresReports/Services/Reports/Reports.Infrastructure/Reports.Infrastructure.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/codespace/.nuget/packages/mediatr/12.4.1/mediatr.12.4.1.nupkg.sha512",
+    "/home/codespace/.nuget/packages/mediatr.contracts/2.0.1/mediatr.contracts.2.0.1.nupkg.sha512",
+    "/home/codespace/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
